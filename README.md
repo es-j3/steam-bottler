@@ -13,4 +13,4 @@ Credit where it's due:
 
 Art for logo: https://www.freebsd.org/art/ 
 
-Two lines of the script are from Alexander Vereeken
+Two lines of the script are from Alexander Vereeken's Mizutamari
