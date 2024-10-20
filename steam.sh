@@ -22,7 +22,7 @@ mkdir -p ~/.steam
 
 zenity --info --text="Let's install DXVK and corefonts for Steam and video games to function properly."
 
-WINEPREFIX=~/.proton WINE=/usr/local/bin/wine winetricks dxvk corefonts
+WINEPREFIX=~/.proton WINE=/usr/local/bin/wine winetricks dxvk vkd3d corefonts
 
 zenity --info --text="The next step will install Steam."
 
@@ -67,10 +67,10 @@ Terminal=false
 TerminalOptions=
 Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime.desktop'
 
-zenity --info --text="Hopefully, this next click will show the Steam login prompt! If you want the setup"
+zenity --info --text="Hopefully, this next click will show the Steam login prompt!"
 
 WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
- $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
 
 rm -rf ~/.local/share/applications/wine/Programs/Steam/
