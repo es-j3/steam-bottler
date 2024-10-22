@@ -1,7 +1,7 @@
 #!/bin/sh
 
 install_dependencies() {
-    sudo sh -c "pkg install -y wine-devel wine-proton"
+    su -l root -c 'pkg install -y wine-devel wine-proton'
     sh -c "/usr/local/share/wine/pkg32.sh install wine-proton wine-devel mesa-dri"
 }
 
@@ -45,9 +45,9 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/icons/steambsdruntime
 fetch https://i.ibb.co/MM1H2hY/icon.png && cp icon.png ~/.local/share/icons/steambsdruntime/icon.png && rm -rf icon.png
 xdg-icon-resource install --size 256 ~/.local/share/icons/steambsdruntime/icon.png steambsdruntime --novendor
-sudo touch /usr/local/bin/steam-bsd-runtime
-sudo sh -c 'echo "WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime'
-sudo chmod +x /usr/local/bin/steam-bsd-runtime
+su -l root -c touch /usr/local/bin/steam-bsd-runtime
+su -l root -c 'echo "WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime'
+su -l root -c chmod +x /usr/local/bin/steam-bsd-runtime
 touch ~/.local/share/applications/Steam-BSD-Runtime.desktop
 chmod +x ~/.local/share/applications/Steam-BSD-Runtime.desktop
 sh -c 'echo "[Desktop Entry]
