@@ -61,7 +61,7 @@ Terminal=false
 TerminalOptions=
 Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime.desktop'
 
-zenity --info --text="Hopefully, this next click will show the Steam login prompt!"
+zenity --info --text="Hopefully, this next click will show the Steam login prompt! After that, everything should already be installed, so enjoy :)"
 
 WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks corefonts
@@ -70,15 +70,3 @@ WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_
 
 rm -rf ~/.local/share/applications/wine/Programs/Steam/
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu 
-
-sleep 5
-
-pkill -f "wineserver"
-pkill -f "system32"
-pkill -f "Steam.exe"
-pkill -f "steam.exe"
-pkill -f "steamwebhelper.exe"
-
-sleep 1
-
-zenity --info --text="Installation completed. You can now run Steam from running steam-bsd-runtime or through the shortcut in your applications."
