@@ -7,12 +7,6 @@ Requirements: Zenity, the GUI frontend used by this project
 
 ```pkg install zenity```
 
-Sudo, which is needed to install other dependencies while the script is running and manage shortcuts for later
-
-```pkg install sudo```
-
-```echo "yourusername ALL=(ALL:ALL) ALL" > /usr/local/etc/sudoers```
-
 1. ```fetch https://raw.githubusercontent.com/coolerguy71/Steam-BSD-Runtime/main/steam.sh```
 
 2. ```chmod +x steam.sh```
