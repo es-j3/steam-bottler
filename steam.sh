@@ -22,7 +22,7 @@ mkdir -p ~/.steam
 
 zenity --info --text="Let's install DXVK and corefonts for Steam and video games to function properly."
 
-WINEPREFIX=~/.proton WINE=/usr/local/bin/wine winetricks dxvk vkd3d corefonts
+WINEPREFIX=~/.proton WINE=/usr/local/bin/wine winetricks dxvk
 
 zenity --info --text="The next step will install Steam."
 
@@ -32,19 +32,13 @@ while pgrep -f "SteamSetup.exe" > /dev/null; do
     sleep 1
 done
 
-zenity --info --text="Please click OK when the Updating Steam window is finished and is no longer open."
+zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
 
 pkill -f "wineserver"
 pkill -f "system32"
 pkill -f "Steam.exe"
 pkill -f "steam.exe"
 pkill -f "steamwebhelper.exe"
-
-sleep 10 && pkill -f "wineserver" &
-sleep 10 && pkill -f "system32" &
-sleep 10 && pkill -f "Steam.exe" &
-sleep 10 && pkill -f "steam.exe" &
-sleep 10 && pkill -f "steamwebhelper.exe" &
 
 zenity --info --text="Now, let's add a shortcut for Steam."
 mkdir -p ~/.local/share/applications
@@ -70,6 +64,7 @@ Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime.desktop'
 zenity --info --text="Hopefully, this next click will show the Steam login prompt!"
 
 WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks corefonts
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
 
