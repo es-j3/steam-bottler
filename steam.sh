@@ -3,10 +3,10 @@
 # Installs dependencies if needed
 install_dependencies() {
     su -l root -c 'pkg install -y wine-devel wine-proton'
-    sh -c "/usr/local/share/wine/pkg32.sh install wine-proton wine-devel mesa-dri"
+    sh -c "/usr/local/share/wine/pkg32.sh install wine-proton wine-devel winetricks mesa-dri"
 }
 
-if zenity --question --text="Would you like to install wine-devel and wine-proton? Both are dependencies needed."; then
+if zenity --question --text="Would you like to install wine-devel, winetricks wine-proton? They are dependencies needed."; then
     install_dependencies
 else
     zenity --info --text="Installation canceled."
