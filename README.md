@@ -3,6 +3,8 @@
 
 ## Steam on FreeBSD has never been easier!
 
+> !!! News, 31 Oct 2024, Currently this script will not be functional until Wine-Proton 9.0.2 will release for 32-bit https://www.freshports.org/emulators/wine-proton/
+
 Requirements: Zenity, the GUI frontend used by this project
 
 ```pkg install zenity```
