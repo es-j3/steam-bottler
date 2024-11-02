@@ -3,7 +3,19 @@
 # Installs dependencies if needed
 install_dependencies() {
     su -l root -c 'pkg install -y wine-devel wine-proton'
-    sh -c "/usr/local/share/wine/pkg32.sh install wine-proton wine-devel winetricks mesa-dri"
+    sh -c "/usr/local/share/wine/pkg32.sh install -y wine-proton wine-devel winetricks mesa-dri"
+}
+
+# Patches Proton for UE Games https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs#d5bcbaed4ae76fff7d2641017921e07798a7da0e_807_807
+patch_proton() {
+    cd /tmp
+    fetch https://github.com/coolerguy71/Steam-BSD-Runtime/releases/download/Release/wine-proton-9.0.2-amd64.pkg
+    fetch https://github.com/coolerguy71/Steam-BSD-Runtime/releases/download/Release/wine-proton-9.0.2-i386.pkg
+    su -l root -c 'pkg remove -y wine-proton'
+    su -l root -c 'pkg install -y /tmp/wine-proton-9.0.2-amd64.pkg' 
+    cd
+    /usr/local/share/wine/pkg32.sh remove -y wine-proton
+    /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-9.0.2-i386.pkg
 }
 
 if zenity --question --text="Would you like to install wine-devel, winetricks wine-proton? They are dependencies needed."; then
@@ -11,6 +23,12 @@ if zenity --question --text="Would you like to install wine-devel, winetricks wi
 else
     zenity --info --text="Installation canceled."
     exit 0
+fi
+
+if zenity --question --text="Would you like to patch Proton to run Unreal Engine games?"; then
+    patch_proton
+else
+    zenity --info --text="Alright, let's move on."
 fi
 
 zenity --info --text="Steam will be downloaded to /tmp."
