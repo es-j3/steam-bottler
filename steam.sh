@@ -25,7 +25,7 @@ else
     exit 0
 fi
 
-if zenity --question --text="Would you like to patch Proton to run Unreal Engine games?"; then
+if zenity --question --text="Would you like to patch Proton that fixes various Unreal Engine and Unity games? (For FreeBSD 14.1)"; then
     patch_proton
 else
     zenity --info --text="Alright, let's move on."
