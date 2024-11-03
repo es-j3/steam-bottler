@@ -18,7 +18,7 @@ patch_proton() {
     /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-9.0.2-i386.pkg
 }
 
-if zenity --question --text="Would you like to install wine-devel, winetricks wine-proton? They are dependencies needed."; then
+if zenity --question --text="Would you like to install wine-devel, winetricks and wine-proton? They are dependencies needed."; then
     install_dependencies
 else
     zenity --info --text="Installation canceled."
