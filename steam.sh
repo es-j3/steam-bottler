@@ -2,8 +2,8 @@
 
 # Installs dependencies if needed
 install_dependencies() {
-    su -l root -c 'pkg install -y wine-devel wine-proton'
-    sh -c "/usr/local/share/wine/pkg32.sh install -y wine-proton wine-devel winetricks mesa-dri"
+    su -l root -c 'pkg install -y wine-devel winetricks wine-proton'
+    sh -c "/usr/local/share/wine/pkg32.sh install -y wine-proton wine-devel mesa-dri"
 }
 
 # Patches Proton for UE Games https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs#d5bcbaed4ae76fff7d2641017921e07798a7da0e_807_807
