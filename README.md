@@ -3,7 +3,7 @@
 
 ## Steam on FreeBSD has never been easier!
 
-> !!! News, on Nov 2, this script is once again functional, and now you get the option for a version of Proton that supports UE!
+> !!! News, on Nov 2, this script is once again functional, and now you get the option for a version of Proton that fixesall UE games and some Unity ones too!
 
 Requirements: Zenity, the GUI frontend used by this project
 
@@ -15,7 +15,7 @@ Requirements: Zenity, the GUI frontend used by this project
 
 3. ```./steam.sh```
 
-4.```setup (fully interactive)```
+4. ```setup (fully interactive)```
 
 5. happy gaming!
 
