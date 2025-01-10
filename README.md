@@ -16,10 +16,7 @@ Requirements: Zenity, the GUI frontend used by this project
 
 5. happy gaming!
 
-(C) 2024 coolerguy71
+(C) 2024 es-j3
 
 Credit where it's due:
-
-Art for logo: https://www.freebsd.org/art/ 
-
 Two lines of the script are from Alexander Vereeken's Mizutamari
