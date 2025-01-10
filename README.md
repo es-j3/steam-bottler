@@ -1,5 +1,5 @@
 # Steam-BSD-Runtime
-![icon](https://github.com/user-attachments/assets/771231e4-b904-4672-ba4c-3889f06429ad)
+## ![icon](https://github.com/user-attachments/assets/771231e4-b904-4672-ba4c-3889f06429ad)
 
 ## Steam on FreeBSD has never been easier!
 
