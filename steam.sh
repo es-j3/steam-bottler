@@ -65,15 +65,6 @@ zenity --info --text="Now, let's add a shortcut for Steam."
 # Creates the local applications directory if it doesn't exist already
 mkdir -p ~/.local/share/applications
 
-# Creates the icon for Steam BSD Runtime, (Honestly not really needed but I think it's cool to show uniqueness, anyone is welcome to open a pull request removing this)
-mkdir -p ~/.local/share/icons/steambsdruntime
-
-# Fetches the icon, copies it to the steambsdruntime directory in icons folder, then removes it from the home folder.
-fetch https://i.ibb.co/MM1H2hY/icon.png && cp icon.png ~/.local/share/icons/steambsdruntime/icon.png && rm -rf icon.png
-
-# Registers it as an icon for shortcuts that mention it.
-xdg-icon-resource install --size 256 ~/.local/share/icons/steambsdruntime/icon.png steambsdruntime --novendor
-
 # Calls super user permissions to create the steam-bsd-runtime application.
 su -l root -c 'touch /usr/local/bin/steam-bsd-runtime'
 
@@ -91,11 +82,11 @@ chmod +x ~/.local/share/applications/Steam-BSD-Runtime.desktop
 
 # Echoes the contents of the application shortcut to make it point to the script
 sh -c 'echo "[Desktop Entry]
-Comment=BSD Runtime for Steam Client
+Comment=Video game store and digital distribution platform among other services
 Exec=steam-bsd-runtime
-Icon=steambsdruntime
+Icon=steam
 Categories=Game;
-Name=Steam BSD Runtime
+Name=Steam
 StartupNotify=false
 Terminal=false
 TerminalOptions=
@@ -103,7 +94,7 @@ Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime.desktop'
 
 zenity --info --text="Hopefully, this next click will show the Steam login prompt! Give it 30 seconds at most. After that, everything should already be installed, so enjoy :)"
 
-# Sets the Wineprefix to use pulseaudio instead of ALSA
+# Sets the Wineprefix to use pulseaudio instead of ALSA / OSS
 WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 
 # Installs corefonts to load fonts required by Steam.
