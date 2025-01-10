@@ -2,8 +2,6 @@
 
 ## Steam on FreeBSD has never been easier!
 
-> !!! News, on Nov 2, this script is once again functional, and now you get the option for a version of Proton that fixes all UE games and some Unity ones too!
-
 Requirements: Zenity, the GUI frontend used by this project
 
 ```pkg install zenity```
