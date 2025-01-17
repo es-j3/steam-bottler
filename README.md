@@ -19,5 +19,7 @@ Requirements: Zenity, the GUI frontend used by this project
 (C) 2025 es-j3
 
 Credit where it's due:
+
 Two lines of the script are from Alexander Vereeken's Mizutamari
+
 Proton patched for UE games from: https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs
