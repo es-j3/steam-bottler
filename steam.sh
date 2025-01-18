@@ -12,10 +12,10 @@ patch_proton() {
     fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.2/wine-proton-9.0.4-amd64.pkg
     fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.2/wine-proton-9.0.4-i386.pkg
     su -l root -c 'pkg remove -y wine-proton'
-    su -l root -c 'pkg install -y /tmp/wine-proton-9.0.3-amd64.pkg' 
+    su -l root -c 'pkg install -y /tmp/wine-proton-9.0.4-amd64.pkg' 
     cd
     /usr/local/share/wine/pkg32.sh remove -y wine-proton
-    /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-9.0.3-i386.pkg
+    /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-9.0.4-i386.pkg
 }
 
 if zenity --question --text="Would you like to install wine-devel, winetricks and wine-proton? They are dependencies needed."; then
