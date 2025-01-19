@@ -18,6 +18,25 @@ patch_proton() {
     /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-9.0.4-i386.pkg
 }
 
+# Launches Steam with OSS instead of Pulse (for source games)
+oss_shortcut() {
+    su -l root -c 'touch /usr/local/bin/steam-bsd-runtime-oss'
+    su -l root -c 'echo "WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime-oss'
+    su -l root -c 'chmod +x /usr/local/bin/steam-bsd-runtime-oss'
+    touch ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop
+    chmod +x ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop
+    sh -c 'echo "[Desktop Entry]
+Comment=Video game store and digital distribution platform among other services (OSS sound service)
+Exec=steam-bsd-runtime-oss
+Icon=steam
+Categories=Game;
+Name=Steam (OSS)
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop'
+}
+
 if zenity --question --text="Would you like to install wine-devel, winetricks and wine-proton? They are dependencies needed."; then
     install_dependencies
 else
@@ -60,7 +79,7 @@ pkill -f "Steam.exe
 pkill -f "steam.exe"
 pkill -f "steamwebhelper.exe"
 
-zenity --info --text="Now, let's add a shortcut for Steam."
+zenity --info --text="Now, let's add a shortcut for Steam. You might get 3 consecutive root password prompts."
 
 # Creates the local applications directory if it doesn't exist already
 mkdir -p ~/.local/share/applications
@@ -69,7 +88,7 @@ mkdir -p ~/.local/share/applications
 su -l root -c 'touch /usr/local/bin/steam-bsd-runtime'
 
 # Calls super user to echo the contents of the script.
-su -l root -c 'echo "WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime'
+su -l root -c 'echo "WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse && WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime'
 
 # Makes the script executable
 su -l root -c 'chmod +x /usr/local/bin/steam-bsd-runtime'
@@ -91,6 +110,12 @@ StartupNotify=false
 Terminal=false
 TerminalOptions=
 Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime.desktop'
+
+if zenity --question --text="Would you like to add an extra application shortcut that launches Steam using the OSS sound server? (Necessary for Audio on many SOURCE games)"; then
+    oss_shortcut
+else
+    zenity --info --text="Alright, let's move on."
+fi
 
 zenity --info --text="Hopefully, this next click will show the Steam login prompt! Give it 30 seconds at most. After that, everything should already be installed, so enjoy :)"
 
