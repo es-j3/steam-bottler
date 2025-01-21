@@ -16,6 +16,12 @@ Requirements: Zenity, the GUI frontend used by this project
 
 5. happy gaming!
 
+
+## Current Limitations
+- No Steam overlay
+- Steam might randomly crash when not active in window (doesn't apply if you're playing a steam game and active in that)
+- No DX12 (planned)
+
 (C) 2025 es-j3
 
 Credit where it's due:
