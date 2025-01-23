@@ -9,8 +9,8 @@ install_dependencies() {
 # Patches Proton for UE Games https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs#d5bcbaed4ae76fff7d2641017921e07798a7da0e_807_807
 patch_proton() {
     cd /tmp
-    fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.3/proton-bleeding-edge-amd64.pkg
-    fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.3/proton-bleeding-edge-i386.pkg
+    fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.4/proton-bleeding-edge-amd64.pkg
+    fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.4/proton-bleeding-edge-i386.pkg
     su -l root -c 'pkg remove -y wine-proton'
     su -l root -c 'pkg install -y /tmp/proton-bleeding-edge-amd64.pkg' 
     cd
