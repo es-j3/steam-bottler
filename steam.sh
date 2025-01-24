@@ -11,17 +11,24 @@ patch_proton() {
     cd /tmp
     fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.5/wine-proton-e.9.0.20250121-amd64.pkg
     fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.5/wine-proton-e.9.0.20250121-i386.pkg
+    echo "Removing vanilla wine-proton..."
     su -l root -c 'pkg remove -y wine-proton'
+    echo "Installing patched wine-proton..."
     su -l root -c 'pkg install -y /tmp/wine-proton-e.9.0.20250121-amd64.pkg' 
     cd
+    echo "Removing vanilla wine-proton (i386)..."
     /usr/local/share/wine/pkg32.sh remove -y wine-proton
+    echo "Installing patched wine-proton (i386)..."
     /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-e.9.0.20250121-i386.pkg
 }
 
 # Launches Steam with OSS instead of Pulse (for source games)
 oss_shortcut() {
+    echo "Adding steam-bsd-runtime-oss to PATH..."
     su -l root -c 'touch /usr/local/bin/steam-bsd-runtime-oss'
+    echo "Filling launcher contents..."
     su -l root -c 'echo "WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime-oss'
+    echo "Making launcher executable..."
     su -l root -c 'chmod +x /usr/local/bin/steam-bsd-runtime-oss'
     touch ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop
     chmod +x ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop
@@ -44,7 +51,7 @@ else
     exit 0
 fi
 
-if zenity --question --text="Would you like to install a bleeding-edge version of Proton? (With UE Multithread Patch, FreeBSD 14.2) "; then
+if zenity --question --text="Would you like to install the experimental branch of Proton? (With UE Multithread Patch, FreeBSD 14.2) "; then
     patch_proton
 else
     zenity --info --text="Alright, let's move on."
@@ -79,18 +86,21 @@ pkill -f "Steam.exe
 pkill -f "steam.exe"
 pkill -f "steamwebhelper.exe"
 
-zenity --info --text="Now, let's add a shortcut for Steam. You might get 3 consecutive root password prompts."
+zenity --info --text="Now, let's add a shortcut for Steam. You will get 3 consecutive root password prompts."
 
 # Creates the local applications directory if it doesn't exist already
 mkdir -p ~/.local/share/applications
 
 # Calls super user permissions to create the steam-bsd-runtime application.
+echo "Adding steam-bsd-runtime to PATH..."
 su -l root -c 'touch /usr/local/bin/steam-bsd-runtime'
 
 # Calls super user to echo the contents of the script.
+echo "Filling launcher contents..."
 su -l root -c 'echo "WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse && WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu" > /usr/local/bin/steam-bsd-runtime'
 
 # Makes the script executable
+echo "Making launcher executable..."
 su -l root -c 'chmod +x /usr/local/bin/steam-bsd-runtime'
 
 # Creates the local application shortcut
