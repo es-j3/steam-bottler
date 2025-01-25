@@ -127,6 +127,12 @@ else
     zenity --info --text="Alright, let's move on."
 fi
 
+if zenity --question --text="Do you want to enable DX12 support?"; then
+    WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+else
+    zenity --info --text="Alright, let's move on."
+fi
+
 zenity --info --text="Hopefully, this next click will show the Steam login prompt! Give it 30 seconds at most. After that, everything should already be installed, so enjoy :)"
 
 # Sets the Wineprefix to use pulseaudio instead of ALSA / OSS
