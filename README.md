@@ -20,7 +20,17 @@ Requirements: Zenity, the GUI frontend used by this project
 ## Current Limitations
 - No Steam overlay
 - Steam might randomly crash when not active in window (doesn't apply if you're playing a steam game and active in that)
-~~- No DX12 (planned)~~ Added!
+
+
+## Uninstallation
+1. ```rm -rf /usr/local/bin/steam-bsd-runtime /usr/local/bin/steam-bsd-runtime-oss```
+
+2. ```rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/steam.sh```
+
+3. ```rm -rf .proton``` this _removes_ all of your steam data! think twice!
+
+4. ```pkg remove zenity wine-proton wine-devel```
+
 
 (C) 2025 es-j3
 
