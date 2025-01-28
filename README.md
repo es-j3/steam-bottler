@@ -6,11 +6,11 @@ Requirements: Zenity, the GUI frontend used by this project
 
 ```pkg install zenity```
 
-1. ```fetch https://raw.githubusercontent.com/coolerguy71/Steam-BSD-Runtime/main/steam-bsd-runtime-install```
+1. ```fetch https://raw.githubusercontent.com/coolerguy71/Steam-BSD-Runtime/main/steam-bsd-runtime-installer```
 
-2. ```chmod +x steam-bsd-runtime-install```
+2. ```chmod +x steam-bsd-runtime-installer```
 
-3. ```./steam-bsd-runtime-install```
+3. ```./steam-bsd-runtime-installer```
 
 4. ```setup (fully interactive)```
 
@@ -25,7 +25,7 @@ Requirements: Zenity, the GUI frontend used by this project
 ## Uninstallation
 1. ```rm -rf /usr/local/bin/steam-bsd-runtime /usr/local/bin/steam-bsd-runtime-oss```
 
-2. ```rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/steam-bsd-runtime-install```
+2. ```rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/steam-bsd-runtime-installer```
 
 3. ```rm -rf .proton``` this _removes_ all of your steam data! think twice!
 
