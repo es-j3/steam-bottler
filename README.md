@@ -10,7 +10,7 @@ Requirements: Zenity, the GUI frontend used by this project
 
 2. ```chmod +x steam-bsd-runtime-install```
 
-3. ```./steam.sh```
+3. ```./steam-bsd-runtime-install```
 
 4. ```setup (fully interactive)```
 
