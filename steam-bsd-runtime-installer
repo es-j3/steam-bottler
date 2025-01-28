@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if [ "$(id -u)" = 0 ]
+then
+  echo "Don't run this as root, root will be called once needed."
+  exit 1
+fi
+
 # Installs dependencies if needed
 install_dependencies() {
     su -l root -c 'pkg install -y wine-devel winetricks wine-proton'
