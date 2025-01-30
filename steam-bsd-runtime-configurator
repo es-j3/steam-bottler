@@ -1,3 +1,22 @@
 #!/bin/sh
 
-export TODO=$(zenity --ok-label=Continue --cancel-label=Exit --list --radiolist --window-icon=$ICO  --height=320 --width 390 --title="Steam BSD Runtime Configurator" --text "Configure Steam-BSD-Runtime with one of the following options" --hide-header --column "$NAME" --column "Item" FALSE "Uninstall" FALSE "Run " FALSE "Run an EXE" FALSE "Kill the program")
+# I took heavy inspiration from Mizuma for this.
+export SELECTION=$(zenity --ok-label=Continue --cancel-label=Exit --list --radiolist --window-icon=$ICO  --height=320 --width 390 --title="Steam BSD Runtime Configurator" --text "Configure Steam-BSD-Runtime with one of the following options" --hide-header --column "$NAME" --column "Item" FALSE "Uninstall" FALSE "Run " FALSE "Run an EXE" FALSE "Kill the program" FALSE "Refresh the prefix (WINE MUST BE KILLED)")
+
+if [[ -z "$SELECTION" ]]; then
+exit
+fi
+
+if [[ $SELECTION == *"Run an EXE"* ]]; then
+BUTTON=Continue
+TEXT=select
+EXECUTABLE="$(zenity --file-selection --title="Which executable to run?")"
+if [ -z "$EXECUTABLE" ]
+then
+info "Nothing selected..."
+else
+echo -e "You selected $EXECUTABLE"
+WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine "$EXECUTABLE"
+notify "All done!"
+fi
+fi
