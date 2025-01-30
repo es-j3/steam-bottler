@@ -1,0 +1,3 @@
+#!/bin/sh
+
+export TODO=$(zenity --ok-label=Continue --cancel-label=Exit --list --radiolist --window-icon=$ICO  --height=320 --width 390 --title="Steam BSD Runtime Configurator" --text "Configure Steam-BSD-Runtime with one of the following options" --hide-header --column "$NAME" --column "Item" FALSE "Uninstall" FALSE "Run " FALSE "Run an EXE" FALSE "Kill the program")
