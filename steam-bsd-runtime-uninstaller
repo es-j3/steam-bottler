@@ -9,7 +9,7 @@ fi
 remove_shortcuts() {
   cd ~/
   echo "Removing shortcuts..."
-  rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop
+  rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
 }
 remove_proton() {
   cd ~/
