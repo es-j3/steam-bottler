@@ -24,7 +24,8 @@ patch_proton() {
 
 # Launches Steam-BSD-Runtime configurator application
 configurator_shortcut() {
-    fetch https://i.ibb.co/5W2NyNxL/icon.png
+    fetch 'https://drive.usercontent.google.com/download?id=1C0D5ZM6cwzRUo0FG8C07PvSMudCqrNol&export=download&authuser=0'
+    mv download?id=1C0D5ZM6cwzRUo0FG8C07PvSMudCqrNol&export=download&authuser=0 icon.png
     xdg-icon-resource install --size 256 ~/icon.png steam-bsd-runtime-configurator --novendor
     touch ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
     chmod +x ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
