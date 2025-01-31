@@ -18,7 +18,7 @@ remove_proton() {
 }
 
 remove_everything() {
-  su -l root -c 'pkg remove steam-bsd-runtime' when this might be a port!
+  su -l root -c 'pkg remove steam-bsd-runtime'
   rm -rf ~/steam-bsd-runtime-installer ~/steam-bsd-runtime-uninstaller ~/steam-bsd-runtime-configurator
 }
 if zenity --question --text="Are you sure you want to uninstall Steam-BSD-Runtime?"; then
