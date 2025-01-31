@@ -22,6 +22,25 @@ patch_proton() {
     /usr/local/share/wine/pkg32.sh install -y /tmp/wine-proton-e.9.0.20250121-i386.pkg
 }
 
+# Launches Steam-BSD-Runtime configurator application
+configurator_shortcut() {
+    fetch https://github.com/user-attachments/assets/6623af24-c9c1-486a-ac42-536c78532dfe && mv 6623af24-c9c1-486a-ac42-536c78532dfe icon.png 
+    xdg-icon-resource install --size 256 ~/icon.png steam-bsd-runtime-configurator --novendor
+    touch ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
+    chmod +x ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
+    sh -c 'echo "[Desktop Entry]
+Comment=Launches Steam-BSD-Runtime configurator application
+Exec=steam-bsd-runtime-configurator
+Icon=steam-bsd-runtime-configurator
+Categories=Game;
+Name=Steam BSD Runtime Configurator
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop'
+    rm -rf ~/icon.png
+}
+
 # Launches Steam with OSS instead of Pulse (for source games)
 oss_shortcut() {
     echo "Adding steam-bsd-runtime-oss to PATH..."
@@ -44,6 +63,7 @@ TerminalOptions=
 Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop'
 }
 
+# Adds steam-bsd-runtime-configurator
 if zenity --question --text="Would you like to install wine, winetricks and wine-proton? They are dependencies needed."; then
     install_dependencies
 else
@@ -127,11 +147,20 @@ else
     zenity --info --text="Alright, let's move on."
 fi
 
+if zenity --question --text="Would you like to add a shortcut for the Steam BSD Runtime Configurator?"; then
+    configurator_shortcut
+else
+    zenity --info --text="Alright, let's move on."
+fi
+
 if zenity --question --text="Do you want to enable DX12 support?"; then
     WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
 else
     zenity --info --text="Alright, let's move on."
 fi
+
+# Removes the nonfunctioning shortcut automatically created by Wine
+rm -rf ~/.local/share/applications/wine/Programs/Steam/
 
 zenity --info --text="Hopefully, this next click will show the Steam login prompt! Give it 30 seconds at most. After that, everything should already be installed, so enjoy :)"
 
@@ -145,8 +174,7 @@ WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks corefonts
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
 
-# Removes the nonfunctioning shortcut automatically created by Wine
-rm -rf ~/.local/share/applications/wine/Programs/Steam/
+
 
 # Launches Steam finally.
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu 
