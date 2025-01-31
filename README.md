@@ -3,7 +3,7 @@
 ## Steam on FreeBSD has never been easier!
 
 ## Dependencies: 
-```pkg install wine-proton wine winetricks zenity```
+```pkg install wine-proton wine winetricks zenity && /usr/local/share/wine/pkg32.sh install wine wine-proton mesa-dri```
 
 ### Installation
 Straight from github: ```fetch https://raw.githubusercontent.com/es-j3/Steam-BSD-Runtime/main/steam-bsd-runtime-installer && chmod +x steam-bsd-runtime-installer && ./steam-bsd-runtime-installer```
