@@ -63,14 +63,6 @@ TerminalOptions=
 Type=Application" > ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop'
 }
 
-# Adds steam-bsd-runtime-configurator
-if zenity --question --text="Would you like to install wine, winetricks and wine-proton? They are dependencies needed."; then
-    install_dependencies
-else
-    zenity --info --text="Installation canceled."
-    exit 0
-fi
-
 if zenity --question --text="Would you like to install the experimental branch of Proton? (With UE Multithread Patch, FreeBSD 14.2) "; then
     patch_proton
 else
