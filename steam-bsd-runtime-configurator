@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ICO="~/.local/share/icons/hicolor/256x256/apps/steam-bsd-runtime-configurator.png"
+
 while true; do
     CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
         --list --radiolist --window-icon="$ICO" --height=300 --width=400 \
