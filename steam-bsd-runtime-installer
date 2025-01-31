@@ -12,9 +12,9 @@ patch_proton() {
     fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.5/wine-proton-e.9.0.20250121-amd64.pkg
     fetch https://github.com/es-j3/Steam-BSD-Runtime/releases/download/proton-patch-v1.0.5/wine-proton-e.9.0.20250121-i386.pkg
     echo "Removing vanilla wine-proton..."
-    su -l root -c 'pkg remove -y wine-proton'
+    su -l root -c 'pkg remove -y -f wine-proton'
     echo "Installing patched wine-proton..."
-    su -l root -c 'pkg install -y -f /tmp/wine-proton-e.9.0.20250121-amd64.pkg' 
+    su -l root -c 'pkg install -y /tmp/wine-proton-e.9.0.20250121-amd64.pkg' 
     cd
     echo "Removing vanilla wine-proton (i386)..."
     /usr/local/share/wine/pkg32.sh remove -y wine-proton
