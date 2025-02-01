@@ -33,7 +33,7 @@ while true; do
         "Run an EXE")
             EXECUTABLE=$(zenity --file-selection --title="Choose an executable to run")
             if [ -n "$EXECUTABLE" ]; then
-                WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine "$EXECUTABLE"
+                WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine "$EXECUTABLE" -no-cef-sandbox
             fi
             ;;
 
