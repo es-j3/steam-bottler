@@ -1,0 +1,57 @@
+#!/bin/sh
+
+if [ "$(id -u)" = 0 ]
+then
+  echo "Don't run this as root, root will be called once needed."
+  exit 1
+fi
+
+ICO="~/.local/share/icons/hicolor/256x256/apps/steam-bsd-runtime-configurator.png"
+
+while true; do
+    CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
+        --list --radiolist --window-icon="$ICO" --height=300 --width=400 \
+        --title="Steam BSD Runtime Configurator" \
+        --text="Configure Steam-BSD-Runtime with one of the following options" \
+        --hide-header \
+        --column "Select" --column "Option" \
+        FALSE "Uninstall" \
+        FALSE "Run an EXE" \
+        FALSE "Run winetricks" \
+        FALSE "Kill Steam-BSD-Runtime if it's frozen" \
+        FALSE "Refresh the prefix (make sure wine isn't running)")
+
+    if [ -z "$CHOICE" ]; then
+        exit 0  # User pressed Exit or closed the window
+    fi
+
+    case "$CHOICE" in
+        "Uninstall")
+            /usr/local/bin/steam-bsd-runtime-uninstaller
+            ;;
+
+        "Run an EXE")
+            EXECUTABLE=$(zenity --file-selection --title="Choose an executable to run")
+            if [ -n "$EXECUTABLE" ]; then
+                WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine "$EXECUTABLE" -no-cef-sandbox
+            fi
+            ;;
+
+        "Run winetricks")
+            WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks
+            ;;
+
+        "Kill Steam-BSD-Runtime if it's frozen")
+            pkill -f "wineserver"
+            pkill -f "system32"
+            pkill -f "Steam.exe"
+            pkill -f "steam.exe"
+            pkill -f "steamwebhelper.exe"
+            ;;
+
+        "Refresh the prefix (make sure wine isn't running)")
+            WINEPREFIX=~/.proton /usr/local/bin/wineboot -u
+            WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wineboot -u
+            ;;
+    esac
+done

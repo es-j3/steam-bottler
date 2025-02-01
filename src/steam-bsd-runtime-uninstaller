@@ -1,0 +1,40 @@
+#!/bin/sh
+
+if [ "$(id -u)" = 0 ]
+then
+  echo "Don't run this as root, root will be called once needed."
+  exit 1
+fi
+
+remove_shortcuts() {
+  cd ~/
+  echo "Removing shortcuts..."
+  rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
+}
+remove_proton() {
+  cd ~/
+  echo "Removing proton prefix..."
+  rm -rf ~/.proton 
+}
+
+remove_everything() {
+  su -l root -c 'pkg remove steam-bsd-runtime'
+  rm -rf ~/steam-bsd-runtime-installer ~/steam-bsd-runtime-uninstaller ~/steam-bsd-runtime-configurator
+}
+if zenity --question --text="Are you sure you want to uninstall Steam-BSD-Runtime?"; then
+    remove_shortcuts
+else
+    zenity --info --text="Uninstallation canceled."
+fi
+
+if zenity --question --text="Remove the Proton Prefix? Think twice, as this removes ALL of your Steam data."; then
+    remove_proton
+else
+    sleep 1
+fi
+
+if zenity --question --text="Now finally, shall we remove the uninstaller and installer script?"; then
+    remove_everything
+else
+    sleep 1
+fi
