@@ -16,6 +16,8 @@ Install Steam BSD runtime in just 3 easy steps!
 
 ## Current Limitations
 No steam overlay
+if Steam crashes for you often, go to Steam Settings < Interface < Untick "Enable Hardware video Decoding"
+
 
 > (C) 2025 es-j3
 
