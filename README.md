@@ -8,11 +8,11 @@
 ## Installation
 Install Steam BSD runtime in just 3 easy steps!
 
-```git clone https://github.com/es-j3/Steam-BSD-Runtime.git ~/Steam-BSD-Runtime```
+Run as root: ```git clone https://github.com/es-j3/Steam-BSD-Runtime.git ~/Steam-BSD-Runtime```
 
-```cd ~/Steam-BSD-Runtime/games/Steam-BSD-Runtime/ && make install clean```
+Run as root: ```cd ~/Steam-BSD-Runtime/games/Steam-BSD-Runtime/ && make install clean```
 
-```steam-bsd-runtime-installer```
+Run as regular user: ```steam-bsd-runtime-installer```
 
 ## Current Limitations
 No steam overlay
