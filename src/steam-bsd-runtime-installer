@@ -52,10 +52,10 @@ zenity --info --text="Steam will be downloaded to /tmp."
 # Downloads Steam to the /tmp directory
 fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
 
-zenity --info --text="Let's install DXVK for Steam and video games to function properly, along with creating our prefix."
+zenity --info --text="Let's install DXVK and required fonts for Steam and video games to function properly, along with creating our prefix."
 
-# Calls the Proton prefix and the Wine path to be used, then installs dxvk to get 3D acceleration in Wine.
-WINEPREFIX=~/.proton WINE=/usr/local/bin/wine winetricks dxvk
+# Calls the Proton prefix and the Wine path to be used, then installs dxvk to get 3D acceleration, and corefonts so the Steam UI works properly.
+WINEPREFIX=~/.proton WINE=/usr/local/bin/wine winetricks dxvk corefonts
 
 zenity --info --text="The next step will install Steam."
 
@@ -132,13 +132,10 @@ fi
 # Removes the nonfunctioning shortcut automatically created by Wine
 rm -rf ~/.local/share/applications/wine/Programs/Steam/
 
-zenity --info --text="Hopefully, this next click will show the Steam login prompt! Give it 30 seconds at most. After that, everything should already be installed, so enjoy :)"
+zenity --info --text="Hello! It appears you have reached the end of the Steam BSD Runtime installer. If you experience any issues, please report them at https://github.com/es-j3/Steam-BSD-Runtime/issues. Thanks for using this program :D"
 
 # Sets the Wineprefix to use pulseaudio instead of ALSA / OSS
 WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
-
-# Installs corefonts to load fonts required by Steam.
-WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks corefonts
 
 # Patches to make games open in steam (Ripped from Mizutamari)
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
