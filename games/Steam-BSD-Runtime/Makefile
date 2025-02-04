@@ -1,5 +1,5 @@
 PORTNAME=	Steam-BSD-Runtime
-DISTVERSION=	1.0.0
+DISTVERSION=	1.0.1
 CATEGORIES=	games
 MASTER_SITES=	https://github.com/es-j3/Steam-BSD-Runtime/archive/refs/tags/
 DISTFILES=      ${PORTVERSION}.tar.gz
