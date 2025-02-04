@@ -19,7 +19,13 @@ As regular user: ```steam-bsd-runtime-uninstaller```
 
 ## Current Limitations
 No steam overlay
-if Steam crashes for you often, go to Steam Settings < Interface < Untick "Enable Hardware video Decoding"
+
+If Steam crashes for you often, go to Steam Settings < Interface < Untick "Enable Hardware video Decoding"
+
+## Extras
+[Working Games / Not working Games](https://github.com/es-j3/Steam-BSD-Runtime/blob/main/docs/Verified-Games.md)
+
+[Patched Proton](https://github.com/es-j3/Steam-BSD-Runtime/blob/main/docs/Patched-Proton.md)
 
 ## Credits:
 Two lines and general inspiration of the script are from Alexander Vereeken's Mizutamari: https://codeberg.org/Alexander88207/Mizutamari
