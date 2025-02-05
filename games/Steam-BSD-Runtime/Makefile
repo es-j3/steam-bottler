@@ -28,8 +28,8 @@ PLIST_FILES=    bin/steam-bsd-runtime-uninstaller \
                 bin/steam-bsd-runtime-configurator
 
 do-install:
-        ${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-installer ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-installer
-        ${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-uninstaller ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-uninstaller
-        ${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-configurator ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-configurator
+  ${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-installer ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-installer
+  ${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-uninstaller ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-uninstaller
+  ${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-configurator ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-configurator
 
 .include <bsd.port.mk>
