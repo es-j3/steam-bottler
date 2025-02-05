@@ -4,7 +4,7 @@
 > FreeBSD 13.2+ (FreeBSD 14.1 and up highly recommended)
 
 ## Dependencies
-```su -l root -c 'pkg install wine-proton wine zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine mesa-dri```
+```su -l root -c 'pkg install wine-proton wine winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine mesa-dri```
 
 ## Installation
 Install Steam BSD runtime in just 3 easy steps!
