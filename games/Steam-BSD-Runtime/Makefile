@@ -18,7 +18,6 @@ RUN_DEPENDS=    wine:emulators/wine \
                 winetricks:emulators/winetricks \
                 zenity:x11/zenity
 
-NO_ARCH=        yes
 NO_BUILD=       yes
 
 WRKSRC=         ${WRKDIR}/${PORTNAME}-${PORTVERSION}
