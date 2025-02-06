@@ -1,3 +1,4 @@
-Steam on FreeBSD, with the help of Proton
-This port includes the installer, uninstaller, and management scripts.
-/n
+Steam is an online platform for purchasing and playing games, software,
+and other digital content for windows. This package contains three
+scripts which install, remove, and configure a wine bottle which runs
+Steam on FreeBSD.
