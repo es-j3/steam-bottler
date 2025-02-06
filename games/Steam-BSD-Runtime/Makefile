@@ -1,11 +1,11 @@
-PORTNAME=       Steam-BSD-Runtime
+PORTNAME=       steam-bottler
 DISTVERSION=    1.0.1
 CATEGORIES=     games
 MASTER_SITES=   https://github.com/es-j3/${PORTNAME}/archive/${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
 MAINTAINER=     alexander.nogal@proton.me
-COMMENT=        Steam on FreeBSD with the help of Proton
-WWW=            https://github.com/es-j3/Steam-BSD-Runtime
+COMMENT=        Steam Windows gaming in a wine bottle on FreeBSD
+WWW=            https://github.com/es-j3/steam-bottler
 
 LICENSE=        BSD2CLAUSE
 LICENSE_FILE=   ${WRKSRC}/LICENSE
@@ -22,13 +22,13 @@ NO_BUILD=       yes
 
 WRKSRC=         ${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
-PLIST_FILES=    bin/steam-bsd-runtime-uninstaller \
-		bin/steam-bsd-runtime-installer \
-		bin/steam-bsd-runtime-configurator
+PLIST_FILES=    bin/steam-bottler-uninstaller \
+		bin/steam-bottler-installer \
+		bin/steam-bottler-configurator
 
 do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-installer ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-installer
-	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-uninstaller ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-uninstaller
-	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bsd-runtime-configurator ${STAGEDIR}${PREFIX}/bin/steam-bsd-runtime-configurator
+	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler-installer ${STAGEDIR}${PREFIX}/bin/steam-bottler-installer
+	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler-uninstaller ${STAGEDIR}${PREFIX}/bin/steam-bottler-uninstaller
+	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler-configurator ${STAGEDIR}${PREFIX}/bin/steam-bottler-configurator
 
 .include <bsd.port.mk>
