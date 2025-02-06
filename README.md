@@ -1,4 +1,4 @@
-# Steam-BSD-Runtime
+# Steam Bottler
 
 ## Steam on FreeBSD has never been easier!
 > FreeBSD 13.2+ (FreeBSD 14.1 and up highly recommended)
@@ -7,16 +7,16 @@
 ```su -l root -c 'pkg install wine-proton wine winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine mesa-dri```
 
 ## Installation
-Install Steam BSD runtime in just 3 easy steps!
+Install Steam Bottler in just 3 easy steps!
 
-Run as root: ```git clone https://github.com/es-j3/Steam-BSD-Runtime.git ~/Steam-BSD-Runtime```
+Run as root: ```git clone https://github.com/es-j3/steam-bottler.git ~/steam-bottler```
 
-Run as root: ```cd ~/Steam-BSD-Runtime/games/Steam-BSD-Runtime/ && make install clean && rm -rf ~/Steam-BSD-Runtime```
+Run as root: ```cd ~/steam-bottler/games/steam-bottler/ && make install clean && rm -rf ~/steam-bottler```
 
-Run as regular user: ```steam-bsd-runtime-installer```
+Run as regular user: ```steam-bottler-installer```
 
 ## Uninstallation
-As regular user: ```steam-bsd-runtime-uninstaller```
+As regular user: ```steam-bottler-uninstaller```
 
 ## Current Limitations
 No steam overlay
@@ -24,9 +24,9 @@ No steam overlay
 If Steam crashes for you often, go to Steam Settings < Interface < Untick "Enable Hardware video Decoding"
 
 ## Extras
-[Working Games / Not working Games](https://github.com/es-j3/Steam-BSD-Runtime/blob/main/docs/Verified-Games.md)
+[Working Games / Not working Games](https://github.com/es-j3/steam-bottler/blob/main/docs/Verified-Games.md)
 
-[Patched Proton](https://github.com/es-j3/Steam-BSD-Runtime/blob/main/docs/Patched-Proton.md)
+[Patched Proton](https://github.com/es-j3/steam-bottler/blob/main/docs/Patched-Proton.md)
 
 ## Credits:
 Two lines and general inspiration of the script are from Alexander Vereeken's Mizutamari: https://codeberg.org/Alexander88207/Mizutamari
