@@ -26,7 +26,7 @@ If Steam crashes for you often, go to Steam Settings < Interface < Untick "Enabl
 ## Extras
 [Working Games / Not working Games](https://github.com/es-j3/steam-bottler/blob/main/docs/Verified-Games.md)
 
-[Patched Proton](https://github.com/es-j3/steam-bottler/blob/main/docs/Patched-Proton.md)
+[Patched Proton](https://github.com/es-j3/FreeBSD-Proton-Experimental)
 
 ## Credits:
 Two lines and general inspiration of the script are from Alexander Vereeken's Mizutamari: https://codeberg.org/Alexander88207/Mizutamari
