@@ -9,8 +9,8 @@ fi
 remove_shortcuts() {
   cd ~/
   echo "Removing shortcuts..."
-  rm -rf ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-OSS.desktop ~/.local/share/applications/Steam-BSD-Runtime-Configurator.desktop
-  su -l root -c 'rm -rf /usr/local/bin/steam-bsd-runtime /usr/local/bin/steam-bsd-runtime-oss'
+  rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop
+  su -l root -c 'rm -rf /usr/local/bin/steam-bottler /usr/local/bin/steam-bottler-oss'
 }
 remove_proton() {
   cd ~/
@@ -19,10 +19,10 @@ remove_proton() {
 }
 
 remove_everything() {
-  su -l root -c 'pkg remove steam-bsd-runtime'
-  rm -rf ~/steam-bsd-runtime-installer ~/steam-bsd-runtime-uninstaller ~/steam-bsd-runtime-configurator
+  su -l root -c 'pkg remove steam-bottler'
+  rm -rf ~/steam-bottler-installer ~/steam-bottler-uninstaller ~/steam-bottler-configurator
 }
-if zenity --question --text="Are you sure you want to uninstall Steam-BSD-Runtime?"; then
+if zenity --question --text="Are you sure you want to uninstall steam-bottler?"; then
     remove_shortcuts
 else
     zenity --info --text="Uninstallation canceled."
