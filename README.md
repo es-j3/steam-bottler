@@ -8,7 +8,7 @@
 
 If you installed this previously with regular wine, please do a full uninstall with ```steam-bsd-runtime-uninstaller```
 
-Dependencies: ```su -l root -c 'pkg install wine-proton wine-devel winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine mesa-dri```
+Dependencies: ```su -l root -c 'pkg install wine-proton wine-devel winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine-devel mesa-dri```
 
 Install steam-bottler (using wine-devel instead) in just 3 easy steps!
 
