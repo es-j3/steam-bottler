@@ -1,0 +1,14 @@
+To setup a wine bottle with a complete Steam runtime, run:
+
+steam-bottler-installer
+
+To then run Steam, execute:
+
+steam-bottler
+
+To remove the wine bottle, run:
+
+steam-bottler-uninstaller
+
+Note: if Steam crashes for you often, go to
+Steam Settings < Interface < Untick "Enable Hardware video Decoding"
