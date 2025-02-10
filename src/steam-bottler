@@ -6,7 +6,7 @@ if [ "$(id -u)" = 0 ]; then
 fi
 
 COMMAND="$1"
-PROTON_DIR="~/.proton"
+PROTON_DIR="$HOME/.proton"
 
 case "$COMMAND" in
   "")
@@ -200,7 +200,7 @@ while true; do
 
     case "$CHOICE" in
         "Uninstall")
-            /usr/local/bin/steam-bottler-uninstaller
+            steam-bottler remove
             ;;
 
         "Run an EXE")
@@ -222,7 +222,7 @@ while true; do
             pkill -f "steamwebhelper.exe"
             ;;
 
-        "Refresh the prefix, make sure wine isnt running")
+        "Refresh the prefix, make sure wine isn't running")
             WINEPREFIX=~/.proton /usr/local/bin/wineboot -u
             WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wineboot -u
             ;;
@@ -239,8 +239,9 @@ done
     remove_shortcuts() {
   cd ~/
   echo "Removing shortcuts..."
-  rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
+  rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
 }
+
 remove_proton() {
   cd ~/
   echo "Removing proton prefix..."
@@ -251,6 +252,7 @@ remove_everything() {
   su -l root -c 'pkg remove steam-bottler'
   rm -rf ~/steam-bottler-installer ~/steam-bottler-uninstaller ~/steam-bottler-configurator
 }
+
 if zenity --question --text="Are you sure you want to uninstall steam-bottler?"; then
     remove_shortcuts
 else
