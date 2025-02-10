@@ -1,5 +1,5 @@
 PORTNAME=       steam-bottler
-DISTVERSION=    1.0.2
+DISTVERSION=    1.0.3
 CATEGORIES=     games
 MASTER_SITES=   https://github.com/es-j3/${PORTNAME}/archive/${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
@@ -22,13 +22,9 @@ NO_BUILD=       yes
 
 WRKSRC=         ${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
-PLIST_FILES=    bin/steam-bottler-uninstaller \
-		bin/steam-bottler-installer \
-		bin/steam-bottler-configurator
+PLIST_FILES=    bin/steam-bottler
 
 do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler-installer ${STAGEDIR}${PREFIX}/bin/steam-bottler-installer
-	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler-uninstaller ${STAGEDIR}${PREFIX}/bin/steam-bottler-uninstaller
-	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler-configurator ${STAGEDIR}${PREFIX}/bin/steam-bottler-configurator
+	${INSTALL_SCRIPT} ${WRKSRC}/src/steam-bottler ${STAGEDIR}${PREFIX}/bin/steam-bottler
 
 .include <bsd.port.mk>
