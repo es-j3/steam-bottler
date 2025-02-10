@@ -30,40 +30,53 @@ case "$COMMAND" in
         exit 0
       fi
     fi
-    sh -c '
 # Launches steam-bottler configurator application
 configurator_shortcut() {
-    fetch -o ~ https://raw.githubusercontent.com/es-j3/steam-bottler/refs/heads/main/src/icon.png
-    xdg-icon-resource install --size 256 ~/icon.png steam-bottler-configurator --novendor
-    touch ~/.local/share/applications/steam-bottler-Configurator.desktop
-    chmod +x ~/.local/share/applications/steam-bottler-Configurator.desktop
-    sh -c 'echo "[Desktop Entry]
-Comment=Launches steam-bottler configurator application
-Exec=steam-bottler configure
-Icon=steam-bottler-configurator
-Categories=Game;
-Name=Steam Bottler Configurator
-StartupNotify=false
-Terminal=false
-TerminalOptions=
-Type=Application" > ~/.local/share/applications/steam-bottler-Configurator.desktop'
-    rm -rf ~/icon.png
+	fetch -o ~ https://raw.githubusercontent.com/es-j3/steam-bottler/refs/heads/main/src/icon.png
+	xdg-icon-resource install --size 256 ~/icon.png steam-bottler-configurator --novendor
+	touch ~/.local/share/applications/steam-bottler-Configurator.desktop
+	chmod +x ~/.local/share/applications/steam-bottler-Configurator.desktop
+	sh -c 'echo "[Desktop Entry]
+	Comment=Launches steam-bottler configurator application
+	Exec=steam-bottler configure
+	Icon=steam-bottler-configurator
+	Categories=Game;
+	Name=Steam Bottler Configurator
+	StartupNotify=false
+	Terminal=false
+	TerminalOptions=
+	Type=Application" > ~/.local/share/applications/steam-bottler-Configurator.desktop'
+	rm -rf ~/icon.png
 }
 
 # Launches Steam with OSS instead of Pulse (for source games)
 oss_shortcut() {
-    touch ~/.local/share/applications/steam-bottler-OSS.desktop
-    chmod +x ~/.local/share/applications/steam-bottler-OSS.desktop
-    sh -c 'echo "[Desktop Entry]
-Comment=Video game store and digital distribution platform among other services (OSS sound service)
-Exec=steam-bottler oss
-Icon=steam
-Categories=Game;
-Name=Steam (OSS)
-StartupNotify=false
-Terminal=false
-TerminalOptions=
-Type=Application" > ~/.local/share/applications/steam-bottler-OSS.desktop'
+	touch ~/.local/share/applications/steam-bottler-OSS.desktop
+	chmod +x ~/.local/share/applications/steam-bottler-OSS.desktop
+	sh -c 'echo "[Desktop Entry]
+	Comment=Video game store and digital distribution platform among other services (OSS sound service)
+	Exec=steam-bottler oss
+	Icon=steam
+	Categories=Game;
+	Name=Steam (OSS)
+	StartupNotify=false
+	Terminal=false
+	TerminalOptions=
+	Type=Application" > ~/.local/share/applications/steam-bottler-OSS.desktop'
+}
+
+# Echoes the contents of the application shortcut to make it point to the script
+steam_shortcut() {
+	sh -c 'echo "[Desktop Entry]
+	Comment=Video game store and digital distribution platform among other services
+	Exec=steam-bottler
+	Icon=steam
+	Categories=Game;
+	Name=Steam
+	StartupNotify=false
+	Terminal=false
+	TerminalOptions=
+	Type=Application" > ~/.local/share/applications/steam-bottler.desktop'
 }
 
 zenity --info --text="Steam will be downloaded to /tmp."
@@ -95,7 +108,12 @@ pkill -f "Steam.exe"
 pkill -f "steam.exe"
 pkill -f "steamwebhelper.exe"
 
-zenity --info --text="Now, let's add a local shortcut for Steam."
+if zenity --question --text="Would you like to add a shortcut for Steam?"; then
+    steam_shortcut
+else
+    zenity --info --text="Alright, let's move on."
+fi
+
 
 # Creates the local applications directory if it doesn't exist already
 mkdir -p ~/.local/share/applications
@@ -108,15 +126,16 @@ chmod +x ~/.local/share/applications/steam-bottler.desktop
 
 # Echoes the contents of the application shortcut to make it point to the script
 sh -c 'echo "[Desktop Entry]
-Comment=Video game store and digital distribution platform among other services
-Exec=steam-bottler
-Icon=steam
-Categories=Game;
-Name=Steam
-StartupNotify=false
-Terminal=false
-TerminalOptions=
-Type=Application" > ~/.local/share/applications/steam-bottler.desktop'
+	Comment=Video game store and digital distribution platform among other services
+	Exec=steam-bottler
+	Icon=steam
+	Categories=Game;
+	Name=Steam
+	StartupNotify=false
+	Terminal=false
+	TerminalOptions=
+	Type=Application" > ~/.local/share/applications/steam-bottler.desktop
+'
 
 if zenity --question --text="Would you like to add an extra application shortcut that launches Steam using the OSS sound server? (Necessary for Audio on many SOURCE games)"; then
     oss_shortcut
@@ -152,7 +171,7 @@ WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine $WINEBIN reg.exe ADD "HKEY_
 
 # Launches Steam finally.
 WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu 
-'
+
     ;;
 
   "configure")
@@ -160,8 +179,7 @@ WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wine ~/.proton/drive_c/Program\ 
       echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
       exit 1
     fi
-    sh -c '
-    ICO="~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png"
+ICO="~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png"
 
 while true; do
     CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
@@ -174,7 +192,7 @@ while true; do
         FALSE "Run an EXE" \
         FALSE "Run winetricks" \
         FALSE "Kill Steam Bottler if it's frozen" \
-        FALSE "Refresh the prefix (make sure wine isn't running)")
+        FALSE "Refresh the prefix, make sure wine isnt running")
 
     if [ -z "$CHOICE" ]; then
         exit 0  # User pressed Exit or closed the window
@@ -204,13 +222,13 @@ while true; do
             pkill -f "steamwebhelper.exe"
             ;;
 
-        "Refresh the prefix (make sure wine isn't running)")
+        "Refresh the prefix, make sure wine isnt running")
             WINEPREFIX=~/.proton /usr/local/bin/wineboot -u
             WINEPREFIX=~/.proton /usr/local/wine-proton/bin/wineboot -u
             ;;
     esac
 done
-'
+
     ;;
 
   "remove")
@@ -218,7 +236,6 @@ done
       zenity --info --text="Maybe it was never installed in the first place."
       exit 0
     fi
-    sh -c '
     remove_shortcuts() {
   cd ~/
   echo "Removing shortcuts..."
@@ -251,7 +268,6 @@ if zenity --question --text="Now finally, shall we remove the uninstaller and in
 else
     sleep 1
 fi
-'
     ;;
 
   *)
