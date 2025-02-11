@@ -49,6 +49,12 @@ If Steam crashes for you often, go to Steam Settings < Interface < Untick "Enabl
 [Patched Proton](https://github.com/es-j3/FreeBSD-Proton-Experimental)
 
 ## Credits:
+### Contributors:
+Alexander Ziaee (concussious) https://github.com/concussious - Many overall good suggestions and edits
+
+Céleste Ornato (celesteornato) https://github.com/celesteornato - Contributed to working games
+
+### Special Thanks
 Two lines and general inspiration of the script are from Alexander Vereeken's Mizutamari: https://codeberg.org/Alexander88207/Mizutamari
 
 Wine-proton by shkhln: https://www.freshports.org/emulators/wine-proton/
