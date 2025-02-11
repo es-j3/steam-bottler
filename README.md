@@ -6,7 +6,7 @@
 <details>
 <summary>Want to use Wine-Devel instead?</summary>
 
-If you installed this previously with regular wine, please do a full uninstall with ```steam-bsd-runtime-uninstaller```
+If you installed this previously with regular wine, please do a full uninstall with ```steam-bottler remove```
 
 Dependencies: ```su -l root -c 'pkg install wine-proton wine-devel winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine-devel mesa-dri```
 
@@ -16,10 +16,10 @@ Run as root: ```git clone https://github.com/es-j3/steam-bottler.git ~/steam-bot
 
 Run as root: ```cd ~/steam-bottler/games/steam-bottler-devel/ && make install clean && rm -rf ~/steam-bottler```
 
-Run as regular user: ```steam-bottler-installer```
+Run as regular user: ```steam-bottler install```
 
 ## Uninstallation
-As regular user: ```steam-bottler-uninstaller```
+As regular user: ```steam-bottler remove```
 
 </details>
 
@@ -33,10 +33,10 @@ Run as root: ```git clone https://github.com/es-j3/steam-bottler.git ~/steam-bot
 
 Run as root: ```cd ~/steam-bottler/games/steam-bottler/ && make install clean && rm -rf ~/steam-bottler```
 
-Run as regular user: ```steam-bottler-installer```
+Run as regular user: ```steam-bottler install```
 
 ## Uninstallation
-As regular user: ```steam-bottler-uninstaller```
+As regular user: ```steam-bottler remove```
 
 ## Current Limitations
 No steam overlay
@@ -49,12 +49,6 @@ If Steam crashes for you often, go to Steam Settings < Interface < Untick "Enabl
 [Patched Proton](https://github.com/es-j3/FreeBSD-Proton-Experimental)
 
 ## Credits:
-### Contributors:
-Alexander Ziaee (concussious) https://github.com/concussious - Many overall good suggestions and edits
-
-Céleste Ornato (celesteornato) https://github.com/celesteornato - Contributed to working games
-
-### Special Thanks
 Two lines and general inspiration of the script are from Alexander Vereeken's Mizutamari: https://codeberg.org/Alexander88207/Mizutamari
 
 Wine-proton by shkhln: https://www.freshports.org/emulators/wine-proton/
