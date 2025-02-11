@@ -19,3 +19,8 @@ The Sims 4 | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Ra
 War Thunder | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 Who's Your Daddy | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 World Boss | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
+Plaguge Inc: Evolved | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
+Antimatter Dimensions | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
+Half-Life | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
+Steam Engine Simulator | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
+Ultrakill | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | Ran normally when accounting for GPU, should be tested on better hardware to test whether that scales.:w
