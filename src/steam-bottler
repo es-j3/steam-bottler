@@ -189,6 +189,7 @@ while true; do
         --hide-header \
         --column "Select" --column "Option" \
         FALSE "Uninstall" \
+	FALSE "Launch with DXVK HUD" \
         FALSE "Run an EXE" \
         FALSE "Run winetricks" \
         FALSE "Kill Steam Bottler if it's frozen" \
@@ -202,6 +203,23 @@ while true; do
         "Uninstall")
             steam-bottler remove
             ;;
+
+	"Launch with DXVK HUD")
+	CHOICES=$(zenity --list --title="DXVK_HUD selector" \
+	--text="Launch steam-bottler with DXVK_HUD" \
+	--checklist \
+	--column="Check" --column="Dxvk Hud Option" \
+	FALSE default FALSE devinfo FALSE fps FALSE frametimes \
+	FALSE submissions FALSE drawcalls FALSE pipelines FALSE memory \
+	FALSE gpupload FALSE version FALSE api FALSE compiler FALSE samplers \
+	FALSE full \
+	--separator="," \
+	--width=600 --height=500)
+
+	[ $? -ne 0 ] && exit
+
+	DXVK_HUD="$DXVK_HUD" steam-bottler "$GAME_CMD"
+	;;
 
         "Run an EXE")
             EXECUTABLE=$(zenity --file-selection --title="Choose an executable to run")
