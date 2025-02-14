@@ -1,4 +1,3 @@
 Steam is an online platform for purchasing and playing games, software,
-and other digital content for windows. This package contains three
-scripts which install, remove, and configure a wine bottle which runs
-Steam on FreeBSD.
+and other digital content for windows. This port contains 
+a script that bottles Wine Steam on FreeBSD.
