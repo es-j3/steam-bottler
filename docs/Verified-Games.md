@@ -5,10 +5,10 @@ If you are contributing, preferably keep it in alphabetical order
   Steam Game | Proton Version | Mesa Version | NVIDIA-Version | GPU | Comments
   ------------ | ------------- | ------------------------ | ------------- | ------------- | -------------
 Antimatter Dimensions | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
-A Game About Digging a Hole | Proton Experimental (5213 Patch) | 24.1.7.1 | N/A | AMD Radeon RX 6600 XT | 
+A Game About Digging a Hole | Proton Experimental (5213 Patch) | 24.1.7.1 | N/A | AMD Radeon RX 6600 XT | UE Game, therefore requires [5213 Patch](https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs) for acceptable performance - Otherwise can be run with ```-ONETHREAD```, but the game won't run well.
 BEAMNG.drive | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | This game can be very hit-or-miss for people on FreeBSD.
 Banana Shooter | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT |
-Deep Rock Galactic | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | Requires [5213 Patch](https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs) - Otherwise can be run with ```-ONETHREAD```, but the game won't run well.
+Deep Rock Galactic | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | UE Game, therefore requires [5213 Patch](https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs) for acceptable performance - Otherwise can be run with ```-ONETHREAD```, but the game won't run well.
 Fallout Shelter | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 Garry's Mod | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | Must be launched with OSS for sound - otherwise great
 Geometry Dash | Proton Experimental (5213 Patch) (20250121) | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
