@@ -3,26 +3,6 @@
 ## Steam on FreeBSD has never been easier!
 > FreeBSD 13.2+ (FreeBSD 14.1 and up highly recommended)
 
-<details>
-<summary>Want to use Wine-Devel instead?</summary>
-
-If you installed this previously with regular wine, please do a full uninstall with ```steam-bottler remove```
-
-Dependencies: ```su -l root -c 'pkg install wine-proton wine-devel winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine-devel mesa-dri```
-
-Install steam-bottler (using wine-devel instead) in just 3 easy steps!
-
-Run as root: ```git clone https://github.com/es-j3/steam-bottler.git ~/steam-bottler```
-
-Run as root: ```cd ~/steam-bottler/games/steam-bottler-devel/ && make install clean && rm -rf ~/steam-bottler```
-
-Run as regular user: ```steam-bottler install```
-
-## Uninstallation
-As regular user: ```steam-bottler remove```
-
-</details>
-
 ## Dependencies
 ```su -l root -c 'pkg install wine-proton wine winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine mesa-dri```
 
