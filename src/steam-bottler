@@ -205,11 +205,11 @@ while true; do
             ;;
 
 	"Launch with DXVK HUD")
-	CHOICES=$(zenity --list --title="DXVK_HUD selector" \
-	--text="Launch steam-bottler with DXVK_HUD" \
+	CHOICES=$(zenity --list --title="DXVK_HUD options" \
+	--text="Select Dxvk Hud Options ('0' to disable)" \
 	--checklist \
-	--column="Check" --column="Dxvk Hud Option" \
-	FALSE default FALSE devinfo FALSE fps FALSE frametimes \
+	--column="Add" --column="Select some DXVK_HUD options (1 is default)" \
+	FALSE 1 FALSE devinfo FALSE fps FALSE frametimes \
 	FALSE submissions FALSE drawcalls FALSE pipelines FALSE memory \
 	FALSE gpupload FALSE version FALSE api FALSE compiler FALSE samplers \
 	FALSE full \
@@ -218,7 +218,10 @@ while true; do
 
 	[ $? -ne 0 ] && exit
 
-	DXVK_HUD="$DXVK_HUD" steam-bottler "$GAME_CMD"
+	DXVK_HUD="${CHOICES:-0}"
+
+	env DXVK_HUD="$DXVK_HUD" steam-bottler
+
 	;;
 
         "Run an EXE")
