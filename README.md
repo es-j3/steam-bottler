@@ -9,7 +9,7 @@ Install steam-bottler in just 3 easy steps!
 
 ```fetch https://raw.githubusercontent.com/es-j3/steam-bottler/main/pkg/steam-bottler-1.0.5.pkg```
 
-```pkg install ./steam-bottler-1.0.5.pkg
+```pkg install ./steam-bottler-1.0.5.pkg```
 
 ```steam-bottler install```
 
