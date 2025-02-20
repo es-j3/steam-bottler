@@ -3,17 +3,15 @@
 ## Steam on FreeBSD has never been easier!
 > FreeBSD 13.2+ (FreeBSD 14.1 and up highly recommended)
 
-## Dependencies
-```su -l root -c 'pkg install wine-proton wine winetricks zenity git' && /usr/local/wine-proton/bin/pkg32.sh install wine-proton wine mesa-dri```
 
 ## Installation
 Install steam-bottler in just 3 easy steps!
 
-Run as root: ```git clone https://github.com/es-j3/steam-bottler.git ~/steam-bottler```
+```fetch https://raw.githubusercontent.com/es-j3/steam-bottler/main/pkg/steam-bottler-1.0.5.pkg```
 
-Run as root: ```cd ~/steam-bottler/games/steam-bottler/ && make install clean && rm -rf ~/steam-bottler```
+```pkg install ./steam-bottler-1.0.5.pkg
 
-Run as regular user: ```steam-bottler install```
+```steam-bottler install```
 
 ## Uninstallation
 As regular user: ```steam-bottler remove```
