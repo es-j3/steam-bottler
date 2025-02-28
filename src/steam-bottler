@@ -249,7 +249,6 @@ done
 }
 
 remove_proton() {
-  cd ... || exit
   echo "Removing proton prefix..."
   rm -rf ~/.steam-bottler 
 }
