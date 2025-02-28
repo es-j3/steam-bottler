@@ -244,9 +244,8 @@ done
       exit 0
     fi
     remove_shortcuts() {
-  cd ... || exit
-  echo "Removing shortcuts..."
-  rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
+	echo "Removing shortcuts..."
+	rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
 }
 
 remove_proton() {
