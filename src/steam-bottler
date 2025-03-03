@@ -30,6 +30,7 @@ case "$COMMAND" in
         exit 0
       fi
     fi
+
 configurator_shortcut() {
 	fetch -o ~ https://raw.githubusercontent.com/es-j3/steam-bottler/refs/heads/main/src/icon.png
 	xdg-icon-resource install --size 256 ~/icon.png steam-bottler-configurator --novendor
@@ -40,7 +41,7 @@ configurator_shortcut() {
 	Exec=steam-bottler configure
 	Icon=steam-bottler-configurator
 	Categories=Game;
-	Name=Steam Bottler Configurator
+	Name=steam-bottler Configurator
 	StartupNotify=false
 	Terminal=false
 	TerminalOptions=
@@ -76,9 +77,20 @@ steam_shortcut() {
 	Type=Application" > ~/.local/share/applications/steam-bottler.desktop'
 }
 
+check_install() {
+    pkg install -y wine wine-proton zenity winetricks
+    /usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
+}
+
 zenity --info --text="Steam will be downloaded to /tmp."
 
 fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
+
+if zenity --question --text="Would you like to check that all required dependencies are installed?"; then
+    check_install
+else
+    zenity --info --text="Alright, let's move on."
+fi
 
 zenity --info --text="Let's install DXVK and required fonts for Steam and video games to function properly, along with creating our prefix."
 
@@ -106,7 +118,6 @@ else
     zenity --info --text="Alright, let's move on."
 fi
 
-
 mkdir -p ~/.local/share/applications
 
 touch ~/.local/share/applications/steam-bottler.desktop
@@ -131,7 +142,7 @@ else
     zenity --info --text="Alright, let's move on."
 fi
 
-if zenity --question --text="Would you like to add a shortcut for the Steam Bottler Configurator?"; then
+if zenity --question --text="Would you like to add a shortcut for the steam-bottler Configurator?"; then
     configurator_shortcut
 else
     zenity --info --text="Alright, let's move on."
@@ -145,7 +156,7 @@ fi
 
 rm -rf ~/.local/share/applications/wine/Programs/Steam/
 
-zenity --info --text="Hello! It appears you have reached the end of the Steam Bottler installer. If you experience any issues, please report them at https://github.com/es-j3/steam-bottler/issues. Thanks for using this program :D"
+zenity --info --text="Hello! It appears you have reached the end of the steam-bottler installer. If you experience any issues, please report them at https://github.com/es-j3/steam-bottler/issues. Thanks for using this program!"
 
 WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 
@@ -167,14 +178,14 @@ while true; do
     CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
         --list --radiolist --window-icon="$ICO" --height=300 --width=400 \
         --title="Steam BSD Runtime Configurator" \
-        --text="Configure Steam Bottler with one of the following options" \
+        --text="Configure steam-bottler with one of the following options" \
         --hide-header \
         --column "Select" --column "Option" \
         FALSE "Uninstall" \
 	      FALSE "Launch with DXVK HUD" \
         FALSE "Run an EXE" \
         FALSE "Run winetricks" \
-        FALSE "Kill Steam Bottler if it's frozen" \
+        FALSE "Kill steam-bottler if it's frozen" \
         FALSE "Refresh the prefix, make sure wine isnt running" \
         FALSE "Launch Steam with no sound")
 
@@ -218,7 +229,7 @@ while true; do
             WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks
             ;;
 
-        "Kill Steam Bottler if it's frozen")
+        "Kill steam-bottler if it's frozen")
             pkill -f "wineserver"
             pkill -f "system32"
             pkill -f "Steam.exe"
