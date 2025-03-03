@@ -199,18 +199,18 @@ while true; do
             ;;
 
 	"Launch with DXVK HUD")
-	CHOICES=$(zenity --list --title="DXVK_HUD options" \
-	--text="Select Dxvk Hud Options ('0' to disable)" \
-	--checklist \
-	--column="Add" --column="Select some DXVK_HUD options (1 is default)" \
-	FALSE 1 FALSE devinfo FALSE fps FALSE frametimes \
-	FALSE submissions FALSE drawcalls FALSE pipelines FALSE memory \
-	FALSE gpupload FALSE version FALSE api FALSE compiler FALSE samplers \
-	FALSE full \
-	--separator="," \
-	--width=600 --height=500)
-
-	[ $? -ne 0 ] && exit
+if ! CHOICES=$(zenity --list --title="DXVK_HUD options" \
+    --text="Select Dxvk Hud Options ('0' to disable)" \
+    --checklist \
+    --column="Add" --column="Select some DXVK_HUD options (1 is default)" \
+    FALSE 1 FALSE devinfo FALSE fps FALSE frametimes \
+    FALSE submissions FALSE drawcalls FALSE pipelines FALSE memory \
+    FALSE gpupload FALSE version FALSE api FALSE compiler FALSE samplers \
+    FALSE full \
+    --separator="," \
+    --width=600 --height=500); then
+    exit
+fi
 
 	DXVK_HUD="${CHOICES:-0}"
 
