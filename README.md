@@ -1,11 +1,10 @@
-# steam-bottler
+![New Project (3)](https://github.com/user-attachments/assets/fb25d1d8-880c-42ab-8966-b8358d97319e)
 
-## Steam on FreeBSD has never been easier!
-> FreeBSD 13.2+ (FreeBSD 14.1 and up highly recommended)
+### So, how does this work?
+This project utilizes Proton to run the latest version of Steam on FreeBSD. It is installed with Wine, and ran with Proton.
 
-
-## Installation
-Install steam-bottler in just 3 easy steps!
+Want to know more? Feel free to look at the source (It's quite basic).
+### Installation
 
 ```fetch https://raw.githubusercontent.com/es-j3/steam-bottler/main/pkg/steam-bottler-1.0.5.pkg```
 
@@ -13,24 +12,17 @@ Install steam-bottler in just 3 easy steps!
 
 ```steam-bottler install```
 
-## Uninstallation
-As regular user: ```steam-bottler remove```
+### Uninstallation
+```steam-bottler remove```
 
-## Current Limitations
-No steam overlay
+### HELP! Steam is closing/freezing randomly. What do I do?
+Currently, there is no direct fix to this. So far, I have been able to narrow it down to something Pulseaudio-related.
 
-If Steam crashes for you often, go to Steam Settings < Interface < Untick "Enable Hardware video Decoding"
+While you are playing games or active in the Steam window, Steam shouldn't freeze.
 
-## Extras
+If you are downloading a game or leaving it open long term, then close Steam and run ```steam-bottler configure``` < ```Launch Steam with no sound``` and your problems should _hopefully_ be fixed.
+
+### Extras
 [Working Games / Not working Games](https://github.com/es-j3/steam-bottler/blob/main/docs/Verified-Games.md)
 
-[Patched Proton](https://github.com/es-j3/FreeBSD-Proton-Experimental)
-
-## Credits:
-Two lines and general inspiration of the script are from Alexander Vereeken's Mizutamari: https://codeberg.org/Alexander88207/Mizutamari
-
-Wine-proton by shkhln: https://www.freshports.org/emulators/wine-proton/
-
-Proton patched for UE games by Katharine Chui: https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs https://gitlab.winehq.org/katharinechui
-
-> (C) 2025 es-j3
+Made by es-j3.
