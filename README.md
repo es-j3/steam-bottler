@@ -12,6 +12,14 @@ Want to know more? Feel free to look at the source (It's quite basic).
 
 ```steam-bottler install```
 
+If you want the absolute latest releases of the project, then run:
+
+```fetch https://raw.githubusercontent.com/es-j3/steam-bottler/main/src/steam-bottler```
+
+```cp steam-bottler /usr/local/bin/steam-bottler```
+
+```chmod +x /usr/local/bin/steam-bottler```
+
 ### Uninstallation
 ```steam-bottler remove```
 
