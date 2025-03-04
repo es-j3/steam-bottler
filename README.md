@@ -1,5 +1,4 @@
-![New Project (3)](https://github.com/user-attachments/assets/fb25d1d8-880c-42ab-8966-b8358d97319e)
-
+![418460607-fb25d1d8-880c-42ab-8966-b8358d97319e](https://github.com/user-attachments/assets/0f05916d-229c-4ae5-ad59-7f61fdc21fd1)
 ### So, how does this work?
 This project utilizes Proton to run the latest version of Steam on FreeBSD. It is installed with Wine, and ran with Proton.
 
