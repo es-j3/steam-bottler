@@ -5,7 +5,7 @@ This project utilizes Proton to run the latest version of Steam on FreeBSD. It i
 Want to know more? Feel free to look at the source (It's quite basic).
 ### Installation
 
-```fetch https://raw.githubusercontent.com/es-j3/steam-bottler/main/pkg/steam-bottler-1.0.6.pkg```
+```fetch https://github.com/es-j3/steam-bottler/releases/download/1.0.6/steam-bottler-1.0.6.pkg```
 
 ```pkg install ./steam-bottler-1.0.6.pkg```
 
