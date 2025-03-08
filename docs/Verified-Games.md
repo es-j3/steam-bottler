@@ -2,7 +2,9 @@ Games confirmed to be working or not working with FreeBSD Proton. PRs to add mor
 No comments probably means the game works perfectly.
 If you are contributing, preferably keep it in alphabetical order.
 
-  Steam Game | Proton Version | Mesa Version | NVIDIA-Version | GPU | Comments
+Also, it doesn't have to be strictly Steam games with Proton. If you got games running with other methods (even Linuxulator), then feel free to add that too.
+
+  Game | Proton Version | Mesa Version | NVIDIA-Version | GPU | Comments
   ------------ | ------------- | ------------------------ | ------------- | ------------- | -------------
 Antimatter Dimensions | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
 A Game About Digging a Hole | Proton 20250203 (5213 Patch) | 24.1.7.1 | N/A | AMD Radeon RX 6600 XT | UE Game, therefore requires [5213 Patch](https://gitlab.winehq.org/wine/wine/-/merge_requests/5213/diffs) for acceptable performance - Otherwise can be run with ```-ONETHREAD```, but the game won't run well.
