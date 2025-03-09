@@ -296,8 +296,14 @@ case "$COMMAND" in
 
                         WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
                         ;;
+                
+                "Check for project updates")
+                            # Only really a placeholder for now, nothing new *yet* anyways.
+                            echo "No new updates, sorry :("
+                        ;;
 
                 "Launch Steam with no sound")
+                        echo "Launching steam-bottler without sound..."
                         WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=alsa && WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine ~/.steam-bottler/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
                         ;;
                 esac
