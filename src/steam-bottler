@@ -6,26 +6,26 @@ if [ "$(id -u)" = 0 ]; then
 fi
 
 COMMAND="$1"
-PROTON_DIR="$HOME/.steam-bottler"
+PROJECT_DIR="$HOME/.steam-bottler"
 
 case "$COMMAND" in
 "")
-        if [ ! -d "$PROTON_DIR" ]; then
+        if [ ! -d "$PROJECT_DIR" ]; then
                 echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
                 exit 1
         fi
-        sh -c 'WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse && WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine ~/.steam-bottler/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu'
+        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse && WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
         ;;
 "oss")
-        if [ ! -d "$PROTON_DIR" ]; then
+        if [ ! -d "$PROJECT_DIR" ]; then
                 echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
                 exit 1
         fi
-        sh -c 'WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine ~/.steam-bottler/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu'
+        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
         ;;
 
 "install")
-        if [ -d "$PROTON_DIR" ]; then
+        if [ -d "$PROJECT_DIR" ]; then
                 if ! zenity --question --text="This appears to be already installed. Continue?"; then
                         exit 0
                 fi
@@ -36,45 +36,45 @@ case "$COMMAND" in
                 xdg-icon-resource install --size 256 ~/icon.png steam-bottler-configurator --novendor
                 touch ~/.local/share/applications/steam-bottler-Configurator.desktop
                 chmod +x ~/.local/share/applications/steam-bottler-Configurator.desktop
-                sh -c 'echo "[Desktop Entry]
-        Comment=Launches steam-bottler configurator application
-        Exec=steam-bottler configure
-        Icon=steam-bottler-configurator
-        Categories=Game;
-        Name=steam-bottler Configurator
-        StartupNotify=false
-        Terminal=false
-        TerminalOptions=
-        Type=Application" > ~/.local/share/applications/steam-bottler-Configurator.desktop'
+                echo "[Desktop Entry]
+                Comment=Launches steam-bottler configurator application
+                Exec=steam-bottler configure
+                Icon=steam-bottler-configurator
+                Categories=Game;
+                Name=steam-bottler Configurator
+                StartupNotify=false
+                Terminal=false
+                TerminalOptions=
+                Type=Application" >~/.local/share/applications/steam-bottler-Configurator.desktop
                 rm -rf ~/icon.png
         }
 
         oss_shortcut() {
                 touch ~/.local/share/applications/steam-bottler-OSS.desktop
                 chmod +x ~/.local/share/applications/steam-bottler-OSS.desktop
-                sh -c 'echo "[Desktop Entry]
-        Comment=Video game store and digital distribution platform among other services (OSS sound service)
-        Exec=steam-bottler oss
-        Icon=steam
-        Categories=Game;
-        Name=Steam (OSS)
-        StartupNotify=false
-        Terminal=false
-        TerminalOptions=
-        Type=Application" > ~/.local/share/applications/steam-bottler-OSS.desktop'
+                echo "[Desktop Entry]
+                Comment=Video game store and digital distribution platform among other services (OSS sound service)
+                Exec=steam-bottler oss
+                Icon=steam
+                Categories=Game;
+                Name=Steam (OSS)
+                StartupNotify=false
+                Terminal=false
+                TerminalOptions=
+                Type=Application" >~/.local/share/applications/steam-bottler-OSS.desktop
         }
 
         steam_shortcut() {
-                sh -c 'echo "[Desktop Entry]
-        Comment=Video game store and digital distribution platform among other services
-        Exec=steam-bottler
-        Icon=steam
-        Categories=Game;
-        Name=Steam
-        StartupNotify=false
-        Terminal=false
-        TerminalOptions=
-        Type=Application" > ~/.local/share/applications/steam-bottler.desktop'
+                echo "[Desktop Entry]
+                Comment=Video game store and digital distribution platform among other services
+                Exec=steam-bottler
+                Icon=steam
+                Categories=Game;
+                Name=Steam
+                StartupNotify=false
+                Terminal=false
+                TerminalOptions=
+                Type=Application" >~/.local/share/applications/steam-bottler.desktop
         }
 
         check_install() {
@@ -94,11 +94,14 @@ case "$COMMAND" in
 
         zenity --info --text="Let's install DXVK and required fonts for Steam and video games to function properly, along with creating our prefix."
 
-        WINEPREFIX=~/.steam-bottler WINE=/usr/local/bin/wine winetricks dxvk corefonts
+        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/bin/wine winetricks dxvk corefonts
+
+        mkdir -p "$PROJECT_DIR"/userdata
+        mkdir -p "$PROJECT_DIR"/steamclient
 
         zenity --info --text="The next step will install Steam."
 
-        WINEPREFIX=~/.steam-bottler /usr/local/bin/wine /tmp/SteamSetup.exe
+        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/bin/wine /tmp/SteamSetup.exe
 
         while pgrep -f "SteamSetup.exe" >/dev/null; do
                 sleep 1
@@ -118,13 +121,19 @@ case "$COMMAND" in
                 zenity --info --text="Alright, let's move on."
         fi
 
+        cp -r "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steamapps "$PROJECT_DIR"/steamapps
+
+        rm -rf "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steamapps
+
+        ln -s "$PROJECT_DIR"/steamapps "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steamapps
+
         mkdir -p ~/.local/share/applications
 
         touch ~/.local/share/applications/steam-bottler.desktop
 
         chmod +x ~/.local/share/applications/steam-bottler.desktop
 
-        sh -c 'echo "[Desktop Entry]
+        echo "[Desktop Entry]
         Comment=Video game store and digital distribution platform among other services
         Exec=steam-bottler
         Icon=steam
@@ -133,8 +142,7 @@ case "$COMMAND" in
         StartupNotify=false
         Terminal=false
         TerminalOptions=
-        Type=Application" > ~/.local/share/applications/steam-bottler.desktop
-'
+        Type=Application" >~/.local/share/applications/steam-bottler.desktop
 
         if zenity --question --text="Would you like to add an extra application shortcut that launches Steam using the OSS sound server? (Necessary for Audio on many SOURCE games)"; then
                 oss_shortcut
@@ -149,26 +157,31 @@ case "$COMMAND" in
         fi
 
         if zenity --question --text="Do you want to enable DX12 support?"; then
-                WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+                WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
         else
                 zenity --info --text="Alright, let's move on."
         fi
+
+        cp -r "$PROJECT_DIR"/pfx/drive_c/Users/steamuser "$PROJECT_DIR"/userdata/steamuser
+
+        rm -rf "$PROJECT_DIR"/pfx/drive_c/Users/steamuser
+
+        ln -s "$PROJECT_DIR"/userdata/steamuser "$PROJECT_DIR"/pfx/drive_c/Users/steamuser
 
         rm -rf ~/.local/share/applications/wine/Programs/Steam/
 
         zenity --info --text="Hello! It appears you have reached the end of the steam-bottler installer. If you experience any issues, please report them at https://github.com/es-j3/steam-bottler/issues. Thanks for using this program!"
 
-        WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 
-        WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
-        WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
 
-        WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine ~/.steam-bottler/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
-
+        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
         ;;
 
 "configure")
-        if [ ! -d "$PROTON_DIR" ]; then
+        if [ ! -d "$PROJECT_DIR" ]; then
                 echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
                 exit 1
         fi
@@ -177,7 +190,7 @@ case "$COMMAND" in
         while true; do
                 CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
                         --list --radiolist --window-icon="$ICO" --height=300 --width=400 \
-                        --title="Steam BSD Runtime Configurator" \
+                        --title="steam-bottler Configurator" \
                         --text="Configure steam-bottler with one of the following options" \
                         --hide-header \
                         --column "Select" --column "Option" \
@@ -186,7 +199,8 @@ case "$COMMAND" in
                         FALSE "Run an EXE" \
                         FALSE "Run winetricks" \
                         FALSE "Kill steam-bottler if it's frozen" \
-                        FALSE "Refresh the prefix, make sure wine isnt running" \
+                        FALSE "Soft-reinstall Steam Client (save/game data is preserved)" \
+                        FALSE "Check for project updates" \
                         FALSE "Launch Steam with no sound")
 
                 if [ -z "$CHOICE" ]; then
@@ -215,18 +229,17 @@ case "$COMMAND" in
                         DXVK_HUD="${CHOICES:-0}"
 
                         env DXVK_HUD="$DXVK_HUD" steam-bottler
-
                         ;;
 
                 "Run an EXE")
                         EXECUTABLE=$(zenity --file-selection --title="Choose an executable to run")
                         if [ -n "$EXECUTABLE" ]; then
-                                WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine "$EXECUTABLE" -no-cef-sandbox
+                                WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$EXECUTABLE" -no-cef-sandbox
                         fi
                         ;;
 
                 "Run winetricks")
-                        WINEPREFIX=~/.steam-bottler WINE=/usr/local/wine-proton/bin/wine winetricks
+                        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks
                         ;;
 
                 "Kill steam-bottler if it's frozen")
@@ -237,10 +250,53 @@ case "$COMMAND" in
                         pkill -f "steamwebhelper.exe"
                         ;;
 
-                "Refresh the prefix, make sure wine isn't running")
-                        WINEPREFIX=~/.steam-bottler /usr/local/bin/wineboot -u
-                        WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wineboot -u
+                "Soft-reinstall Steam Client (save/game data is preserved)")
+                        rm -rf ~/.steam-bottler/pfx ~/.steam-bottler/steamclient
+
+                        fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/bin/wine winetricks dxvk corefonts
+
+                        mkdir -p "$PROJECT_DIR"/steamclient
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/bin/wine /tmp/SteamSetup.exe
+
+                        while pgrep -f "SteamSetup.exe" >/dev/null; do
+                                sleep 1
+                        done
+
+                        zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
+
+                        pkill -f "wineserver"
+                        pkill -f "system32"
+                        pkill -f "Steam.exe"
+                        pkill -f "steam.exe"
+                        pkill -f "steamwebhelper.exe"
+
+                        rm -rf "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steamapps
+
+                        ln -s "$PROJECT_DIR"/steamapps "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steamapps
+
+                        if zenity --question --text="Do you want to enable DX12 support?"; then
+                                WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+                        else
+                                zenity --info --text="Alright, let's move on."
+                        fi
+
+                        rm -rf "$PROJECT_DIR"/pfx/drive_c/Users/steamuser
+
+                        ln -s "$PROJECT_DIR"/userdata/steamuser "$PROJECT_DIR"/pfx/drive_c/Users/steamuser
+
+                        rm -rf ~/.local/share/applications/wine/Programs/Steam/
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
                         ;;
+
                 "Launch Steam with no sound")
                         WINEPREFIX=~/.proton WINE=/usr/local/wine-proton/bin/wine winetricks sound=alsa && WINEPREFIX=~/.steam-bottler /usr/local/wine-proton/bin/wine ~/.steam-bottler/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
                         ;;
@@ -250,23 +306,29 @@ case "$COMMAND" in
         ;;
 
 "remove")
-        if [ ! -d "$PROTON_DIR" ]; then
+        if [ ! -d "$PROJECT_DIR" ]; then
                 zenity --info --text="Maybe it was never installed in the first place."
                 exit 0
         fi
+
         remove_shortcuts() {
                 echo "Removing shortcuts..."
                 rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
         }
 
         remove_proton() {
-                echo "Removing proton prefix..."
-                rm -rf ~/.steam-bottler
+                echo "Removing Proton Prefix..."
+                rm -rf "$PROJECT_DIR"/pfx
         }
 
-        remove_everything() {
-                su -l root -c 'pkg remove steam-bottler'
-                rm -rf ~/steam-bottler-installer ~/steam-bottler-uninstaller ~/steam-bottler-configurator
+        remove_userdata() {
+                echo "Removing Steam user data..."
+                rm -rf ~/.steam-bottler/userdata
+        }
+
+        remove_steamapps() {
+                echo "Removing Steam apps..."
+                rm -rf ~/.steam-bottler/steamapps
         }
 
         if zenity --question --text="Are you sure you want to uninstall steam-bottler?"; then
@@ -275,14 +337,26 @@ case "$COMMAND" in
                 zenity --info --text="Uninstallation canceled."
         fi
 
-        if zenity --question --text="Remove the Proton Prefix? Think twice, as this removes ALL of your Steam data."; then
+        if zenity --question --text="To start, would you like to remove the Proton prefix?"; then
                 remove_proton
         else
                 sleep 1
         fi
 
-        if zenity --question --text="Now finally, shall we remove the uninstaller and installer script?"; then
-                remove_everything
+        if zenity --question --text="Now, remove Steam user data?"; then
+                remove_userdata
+        else
+                sleep 1
+        fi
+
+        if zenity --question --text="Remove steamapps?"; then
+                remove_steamapps
+        else
+                sleep 1
+        fi
+
+        if zenity --question --text="Now finally, remove the package?"; then
+                su -l root -c 'pkg remove steam-bottler'
         else
                 sleep 1
         fi
