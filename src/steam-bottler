@@ -183,7 +183,6 @@ case "$COMMAND" in
                         FALSE "Run winetricks" \
                         FALSE "Kill steam-bottler if it's frozen" \
                         FALSE "Soft-reinstall Steam Client (save/game data is preserved)" \
-                        FALSE "Check for project updates" \
                         FALSE "Launch Steam with no sound")
 
                 if [ -z "$CHOICE" ]; then
@@ -234,13 +233,56 @@ case "$COMMAND" in
                         ;;
 
                 "Soft-reinstall Steam Client (save/game data is preserved)")
-                                # I need to redo this part.
-                                echo "Nothing here yet"
-                        ;;
-                
-                "Check for project updates")
-                            # Only really a placeholder for now, nothing new *yet* anyways.
-                            echo "No new updates, sorry :("
+
+                        check_install() {
+                                pkg install -y wine wine-proton zenity winetricks
+                                /usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
+                        }
+                        rm -rf "$PROJECT_DIR"/pfx "$PROJECT_DIR"/steamclient
+                        mkdir -p "$PROJECT_DIR"/steamclient
+
+                        fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
+
+                        if zenity --question --text="Check that all dependencies are installed in case you're having issues?"; then
+                                check_install
+                        else
+                                zenity --info --text="Alright, let's move on."
+                        fi
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/bin/wine winetricks dxvk corefonts
+
+                        rm -rf "$PROJECT_DIR"/pfx/drive_c/users/steamuser
+                        ln -s "$PROJECT_DIR"/userdata/steamuser "$PROJECT_DIR"/pfx/drive_c/users/steamuser
+
+                        ln -s "$PROJECT_DIR"/steamclient/Steam "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/
+                        ln -s "$PROJECT_DIR"/steamapps "$PROJECT_DIR"/steamclient/Steam/steamapps
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/bin/wine /tmp/SteamSetup.exe
+
+                        while pgrep -f "SteamSetup.exe" >/dev/null; do
+                                sleep 1
+                        done
+
+                        zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
+
+                        pkill -f "wineserver"
+                        pkill -f "system32"
+                        pkill -f "Steam.exe"
+                        pkill -f "steam.exe"
+                        pkill -f "steamwebhelper.exe"
+
+                        if zenity --question --text="Do you want to enable DX12 support?"; then
+                                WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+                        else
+                                zenity --info --text="Alright, let's move on."
+                        fi
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+
+                        WINEPREFIX="$PROJECT_DIR"/pfx /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/pfx/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
                         ;;
 
                 "Launch Steam with no sound")
