@@ -8,9 +8,9 @@ Want to know more? Feel free to look at the source (It's quite basic).
 
 ### Installation
 
-```fetch https://github.com/es-j3/steam-bottler/releases/download/1.0.6/steam-bottler-1.0.6.pkg```
+```fetch https://github.com/es-j3/steam-bottler/releases/download/1.0.6/steam-bottler-1.0.7.pkg```
 
-```pkg install ./steam-bottler-1.0.6.pkg```
+```pkg install ./steam-bottler-1.0.7.pkg```
 
 ```steam-bottler install```
 
