@@ -295,7 +295,6 @@ case "$COMMAND" in
                 zenity --info --text="Uninstallation canceled."
         fi
 
-
         if zenity --question --text="Now, remove all Steam data?"; then
                 remove_data
         else
