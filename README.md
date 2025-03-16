@@ -6,8 +6,6 @@ Currently, only x11 is confirmed to be stable enough with this project. Mileage 
 
 Want to know more? Feel free to look at the source (It's quite basic).
 
-### If you are updating from 1.0.6, please have a look at [this](https://github.com/es-j3/steam-bottler/blob/testing/docs/%3E1.0.6%20---%3E%201.0.7.md)
-
 ### Installation
 
 ```fetch https://github.com/es-j3/steam-bottler/releases/download/1.0.6/steam-bottler-1.0.6.pkg```
