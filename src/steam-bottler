@@ -80,7 +80,7 @@ case "$COMMAND" in
         }
 
         check_install() {
-                pkg install -y wine wine-proton zenity winetricks
+                su -l root -c 'pkg install -y wine wine-proton zenity winetricks'
                 /usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
         }
 
