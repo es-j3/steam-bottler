@@ -20,9 +20,16 @@ Want to know more? Feel free to look at the source (It's quite basic).
 ### HELP! Steam is closing/freezing randomly. What do I do?
 Currently, there is no direct fix to this. So far, I have been able to narrow it down to something Pulseaudio-related.
 
-While you are playing games or active in the Steam window, Steam shouldn't freeze.
+While you are playing games or active in the Steam window, Steam shouldn't freeze. However, if you move your cursor or resize your window too much, it startles Wine and may freeze Steam because of this.
+
+To kill and reopen it, run ```steam-bottler configure``` < ```Kill steam-bottler if it's frozen```
 
 If you are downloading a game or leaving it open long term, then close Steam and run ```steam-bottler configure``` < ```Launch Steam with no sound``` and your problems should _hopefully_ be fixed.
+
+### Steam is no longer opening for me!
+There are many reasons why this can happen. The most common reason I see is upgrading wine-proton or reinstalling it (or adding a patch). For problems like this, I have made a workaround that is available in the steam-bottler configurator window. It is essentially a skimmed installer that "soft-reinstalls" Steam.
+
+To use it, run ```steam-bottler configure``` < ```Soft-reinstall Steam Client (game/save data is preserved)``` and hopefully 90% of your issues will be fixed.
 
 ### Extras
 [Working Games / Not working Games](https://github.com/es-j3/steam-bottler/blob/main/docs/Verified-Games.md)
