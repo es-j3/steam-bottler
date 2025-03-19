@@ -46,7 +46,7 @@ case "$COMMAND" in
                 Terminal=false
                 TerminalOptions=
                 Type=Application" >~/.local/share/applications/steam-bottler-Configurator.desktop
-                rm -rf ~/icon.png
+                ~/icon.png
         }
 
         oss_shortcut() {
@@ -141,6 +141,8 @@ case "$COMMAND" in
         fi
 
         zenity --info --text="Hello! It appears you have reached the end of the steam-bottler installer. If you experience any issues, please report them at https://github.com/es-j3/steam-bottler/issues. Thanks for using this program!"
+
+        rm -rf /home/Alex/.local/share/applications/wine/Programs/Steam/Steam.desktop
 
         WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 
@@ -281,7 +283,7 @@ case "$COMMAND" in
 
         remove_shortcuts() {
                 echo "Removing shortcuts..."
-                rm -rf ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
+                ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
         }
 
         remove_data() {
