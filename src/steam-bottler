@@ -219,6 +219,7 @@ case "$COMMAND" in
                         pkill -f "Steam.exe"
                         pkill -f "steam.exe"
                         pkill -f "steamwebhelper.exe"
+                        pkill -f "steamapps"
                         ;;
 
                 "Soft-reinstall Steam Client (save/game data is preserved)")
