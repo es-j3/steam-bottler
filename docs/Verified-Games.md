@@ -23,12 +23,14 @@ Lethal Company | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 66
 Old School Runescape | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 Phasmophobia | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | Multiplayer framerate drops significantly for the first 45 seconds for some reason, then runs perfectly. 
 PAYDAY 2 | Proton 20250203 (5213 Patch) | 24.1.7.1 | N/A | AMD Radeon RX 6600 XT | Must be launched with OSS for sound; audio crackling. Performance looks good, though.
+Portal 2 | Proton 9.0.3 | 24.1.7.1 | N/A | AMD Radeon RX 7600 |
 Plague Inc: Evolved | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
 Steam Engine Simulator | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | 
 Stumble Guys | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 Team Fortress 2 | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 The Sims 4 | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 Ultrakill | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | Ran normally when accounting for GPU, should be tested on better hardware to test whether that scales.
+VRchat | Proton 9.0.3 | 24.1.7.1 | N/A | Intel UHD Graphics 620 | Not working, apparently an anti-cheat error
 War Thunder | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 Who's Your Daddy | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
 World Boss | Proton 20250203 (5213 Patch)  | 24.1.7 | N/A | AMD Radeon RX 6600 XT | 
