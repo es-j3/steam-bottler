@@ -106,7 +106,7 @@ case "$COMMAND" in
                 sleep 1
         done
 
-        zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
+        zenity --info --text="Please click OK after the Updating Steam window closes!"
 
         pkill -f "wineserver"
         pkill -f "system32"
