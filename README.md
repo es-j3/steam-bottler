@@ -31,6 +31,12 @@ There are many reasons why this can happen. The most common reason I see is upgr
 
 To use it, run ```steam-bottler configure``` < ```Soft-reinstall Steam Client (game/save data is preserved)``` and hopefully 90% of your issues will be fixed.
 
+
+### Roadmap
+Make application shortcuts for steam games  
+Make some configurator options commandline-accessible  
+Maybe some more stuff I come up with, who knows.
+
 ### Extras
 [Working Games / Not working Games](https://github.com/es-j3/steam-bottler/blob/main/docs/Verified-Games.md)
 
