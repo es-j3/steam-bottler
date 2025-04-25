@@ -363,6 +363,8 @@ case "$COMMAND" in
 
 	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
 	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+
+	zenity --info --text="steam-bottler refreshed!"
 	;;
 "nosound")
 	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
