@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ "$(id -u)" = 0 ]; then
-        echo "Don't run this as root, root will be called once needed."
-        exit 1
+	echo "Don't run this as root, root will be called once needed."
+	exit 1
 fi
 
 COMMAND="$1"
@@ -10,33 +10,33 @@ PROJECT_DIR="$HOME/.steam-bottler"
 
 case "$COMMAND" in
 "")
-        if [ ! -d "$PROJECT_DIR" ]; then
-                echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
-                exit 1
-        fi
-        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
-        ;;
+	if [ ! -d "$PROJECT_DIR" ]; then
+		echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
+		exit 1
+	fi
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
+	;;
 "oss")
-        if [ ! -d "$PROJECT_DIR" ]; then
-                echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
-                exit 1
-        fi
-        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
-        ;;
+	if [ ! -d "$PROJECT_DIR" ]; then
+		echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
+		exit 1
+	fi
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
+	;;
 
 "install")
-        if [ -d "$PROJECT_DIR" ]; then
-                if ! zenity --question --text="This appears to be already installed. Continue?"; then
-                        exit 0
-                fi
-        fi
+	if [ -d "$PROJECT_DIR" ]; then
+		if ! zenity --question --text="This appears to be already installed. Continue?"; then
+			exit 0
+		fi
+	fi
 
-        configurator_shortcut() {
-                fetch -o ~ https://raw.githubusercontent.com/es-j3/steam-bottler/refs/heads/main/src/icon.png
-                xdg-icon-resource install --size 256 ~/icon.png steam-bottler-configurator --novendor
-                touch ~/.local/share/applications/steam-bottler-Configurator.desktop
-                chmod +x ~/.local/share/applications/steam-bottler-Configurator.desktop
-                echo "[Desktop Entry]
+	configurator_shortcut() {
+		fetch -o ~ https://raw.githubusercontent.com/es-j3/steam-bottler/refs/heads/main/src/icon.png
+		xdg-icon-resource install --size 256 ~/icon.png steam-bottler-configurator --novendor
+		touch ~/.local/share/applications/steam-bottler-Configurator.desktop
+		chmod +x ~/.local/share/applications/steam-bottler-Configurator.desktop
+		echo "[Desktop Entry]
                 Comment=Launches steam-bottler configurator application
                 Exec=steam-bottler configure
                 Icon=steam-bottler-configurator
@@ -46,13 +46,13 @@ case "$COMMAND" in
                 Terminal=false
                 TerminalOptions=
                 Type=Application" >~/.local/share/applications/steam-bottler-Configurator.desktop
-                ~/icon.png
-        }
+		~/icon.png
+	}
 
-        oss_shortcut() {
-                touch ~/.local/share/applications/steam-bottler-OSS.desktop
-                chmod +x ~/.local/share/applications/steam-bottler-OSS.desktop
-                echo "[Desktop Entry]
+	oss_shortcut() {
+		touch ~/.local/share/applications/steam-bottler-OSS.desktop
+		chmod +x ~/.local/share/applications/steam-bottler-OSS.desktop
+		echo "[Desktop Entry]
                 Comment=Video game store and digital distribution platform among other services (OSS sound service)
                 Exec=steam-bottler oss
                 Icon=steam
@@ -62,12 +62,12 @@ case "$COMMAND" in
                 Terminal=false
                 TerminalOptions=
                 Type=Application" >~/.local/share/applications/steam-bottler-OSS.desktop
-        }
+	}
 
-        steam_shortcut() {
-                touch ~/.local/share/applications/steam-bottler.desktop
-                chmod +x ~/.local/share/applications/steam-bottler.desktop
-                echo "[Desktop Entry]
+	steam_shortcut() {
+		touch ~/.local/share/applications/steam-bottler.desktop
+		chmod +x ~/.local/share/applications/steam-bottler.desktop
+		echo "[Desktop Entry]
                 Comment=Video game store and digital distribution platform among other services
                 Exec=steam-bottler
                 Icon=steam
@@ -77,242 +77,301 @@ case "$COMMAND" in
                 Terminal=false
                 TerminalOptions=
                 Type=Application" >~/.local/share/applications/steam-bottler.desktop
-        }
+	}
 
-        check_install() {
-                su -l root -c 'pkg install -y wine wine-proton zenity winetricks'
-                /usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
-        }
+	check_install() {
+		su -l root -c 'pkg install wine wine-proton zenity winetricks'
+		/usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
+	}
 
-        zenity --info --text="Steam will be downloaded to /tmp."
+	zenity --info --text="Steam will be downloaded to /tmp."
 
-        fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
+	fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
 
-        if zenity --question --text="Would you like to check that all required dependencies are installed?"; then
-                check_install
-        else
-                zenity --info --text="Alright, let's move on."
-        fi
+	if zenity --question --text="Would you like to check that all required dependencies are installed?"; then
+		check_install
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
 
-        zenity --info --text="Let's install DXVK and required fonts for Steam and video games to function properly, along with creating our prefix."
+	zenity --info --text="Let's install DXVK and required fonts for Steam and video games to function properly, along with creating our prefix."
 
-        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/bin/wine winetricks dxvk corefonts
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/bin/wine winetricks dxvk corefonts
 
-        zenity --info --text="The next step will install Steam."
+	zenity --info --text="The next step will install Steam."
 
-        WINEPREFIX="$PROJECT_DIR" /usr/local/bin/wine /tmp/SteamSetup.exe
+	WINEPREFIX="$PROJECT_DIR" /usr/local/bin/wine /tmp/SteamSetup.exe
 
-        while pgrep -f "SteamSetup.exe" >/dev/null; do
-                sleep 1
-        done
+	while pgrep -f "SteamSetup.exe" >/dev/null; do
+		sleep 1
+	done
 
-        zenity --info --text="Please click OK after the Updating Steam window closes!"
+	zenity --info --text="Please click OK after the Updating Steam window closes!"
 
-        pkill -f "wineserver"
-        pkill -f "system32"
-        pkill -f "Steam.exe"
-        pkill -f "steam.exe"
-        pkill -f "steamwebhelper.exe"
+	pkill -f "wineserver"
+	pkill -f "system32"
+	pkill -f "Steam.exe"
+	pkill -f "steam.exe"
+	pkill -f "steamwebhelper.exe"
 
-        if zenity --question --text="Would you like to add a shortcut for Steam?"; then
-                steam_shortcut
-        else
-                zenity --info --text="Alright, let's move on."
-        fi
+	if zenity --question --text="Would you like to add a shortcut for Steam?"; then
+		steam_shortcut
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
 
-        mkdir -p ~/.local/share/applications
+	mkdir -p ~/.local/share/applications
 
-        if zenity --question --text="Would you like to add an extra application shortcut that launches Steam using the OSS sound server? (Necessary for Audio on many SOURCE games)"; then
-                oss_shortcut
-        else
-                zenity --info --text="Alright, let's move on."
-        fi
+	if zenity --question --text="Would you like to add an extra application shortcut that launches Steam using the OSS sound server? (Necessary for Audio on many SOURCE games)"; then
+		oss_shortcut
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
 
-        if zenity --question --text="Would you like to add a shortcut for the steam-bottler Configurator?"; then
-                configurator_shortcut
-        else
-                zenity --info --text="Alright, let's move on."
-        fi
+	if zenity --question --text="Would you like to add a shortcut for the steam-bottler Configurator?"; then
+		configurator_shortcut
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
 
-        if zenity --question --text="Do you want to enable DX12 support?"; then
-                WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
-        else
-                zenity --info --text="Alright, let's move on."
-        fi
+	if zenity --question --text="Do you want to enable DX12 support?"; then
+		WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
 
-        zenity --info --text="Hello! It appears you have reached the end of the steam-bottler installer. If you experience any issues, please report them at https://github.com/es-j3/steam-bottler/issues. Thanks for using this program!"
+	zenity --info --text="Hello! It appears you have reached the end of the steam-bottler installer. If you experience any issues, please report them at https://github.com/es-j3/steam-bottler/issues. Thanks for using this program!"
 
-        rm -rf /home/Alex/.local/share/applications/wine/Programs/Steam/Steam.desktop
+	rm -rf /home/Alex/.local/share/applications/wine/Programs/Steam/Steam.desktop
 
-        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 
-        WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
-        WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
 
-        WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
-        ;;
+	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
+	;;
 
 "configure")
-        if [ ! -d "$PROJECT_DIR" ]; then
-                echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
-                exit 1
-        fi
-        ICO="$HOME/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png"
+	if [ ! -d "$PROJECT_DIR" ]; then
+		echo "Looks like steam-bottler isn't installed yet. Install it with 'steam-bottler install'"
+		exit 1
+	fi
+	ICO="$HOME/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png"
 
-        while true; do
-                CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
-                        --list --radiolist --window-icon="$ICO" --height=300 --width=400 \
-                        --title="steam-bottler Configurator" \
-                        --text="Configure steam-bottler with one of the following options" \
-                        --hide-header \
-                        --column "Select" --column "Option" \
-                        FALSE "Uninstall" \
-                        FALSE "Launch with DXVK HUD" \
-                        FALSE "Run an EXE" \
-                        FALSE "Run winetricks" \
-                        FALSE "Kill steam-bottler if it's frozen" \
-                        FALSE "Soft-reinstall Steam Client (save/game data is preserved)" \
-                        FALSE "Launch Steam with no sound")
+	while true; do
+		CHOICE=$(zenity --ok-label="Continue" --cancel-label="Exit" \
+			--list --radiolist --window-icon="$ICO" --height=300 --width=400 \
+			--title="steam-bottler Configurator" \
+			--text="Configure steam-bottler with one of the following options" \
+			--hide-header \
+			--column "Select" --column "Option" \
+			FALSE "Uninstall" \
+			FALSE "Launch with DXVK HUD" \
+			FALSE "Run an EXE" \
+			FALSE "Run winetricks" \
+			FALSE "Kill steam-bottler if it's frozen" \
+			FALSE "Soft-reinstall Steam Client (save/game data is preserved)" \
+			FALSE "Launch Steam with no sound")
 
-                if [ -z "$CHOICE" ]; then
-                        exit 0
-                fi
+		if [ -z "$CHOICE" ]; then
+			exit 0
+		fi
 
-                case "$CHOICE" in
-                "Uninstall")
-                        steam-bottler remove
-                        ;;
+		case "$CHOICE" in
+		"Uninstall")
+			steam-bottler remove
+			;;
 
-                "Launch with DXVK HUD")
-                        if ! CHOICES=$(zenity --list --title="DXVK_HUD options" \
-                                --text="Select Dxvk Hud Options ('0' to disable)" \
-                                --checklist \
-                                --column="Add" --column="Select some DXVK_HUD options (1 is default)" \
-                                FALSE 1 FALSE devinfo FALSE fps FALSE frametimes \
-                                FALSE submissions FALSE drawcalls FALSE pipelines FALSE memory \
-                                FALSE gpupload FALSE version FALSE api FALSE compiler FALSE samplers \
-                                FALSE full \
-                                --separator="," \
-                                --width=600 --height=500); then
-                                exit
-                        fi
+		"Launch with DXVK HUD")
+			if ! CHOICES=$(zenity --list --title="DXVK_HUD options" \
+				--text="Select Dxvk Hud Options ('0' to disable)" \
+				--checklist \
+				--column="Add" --column="Select some DXVK_HUD options (1 is default)" \
+				FALSE 1 FALSE devinfo FALSE fps FALSE frametimes \
+				FALSE submissions FALSE drawcalls FALSE pipelines FALSE memory \
+				FALSE gpupload FALSE version FALSE api FALSE compiler FALSE samplers \
+				FALSE full \
+				--separator="," \
+				--width=600 --height=500); then
+				exit
+			fi
 
-                        DXVK_HUD="${CHOICES:-0}"
+			DXVK_HUD="${CHOICES:-0}"
 
-                        env DXVK_HUD="$DXVK_HUD" steam-bottler
-                        ;;
+			env DXVK_HUD="$DXVK_HUD" steam-bottler
+			;;
 
-                "Run an EXE")
-                        EXECUTABLE=$(zenity --file-selection --title="Choose an executable to run")
-                        if [ -n "$EXECUTABLE" ]; then
-                                WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$EXECUTABLE" -no-cef-sandbox
-                        fi
-                        ;;
+		"Run an EXE")
+			EXECUTABLE=$(zenity --file-selection --title="Choose an executable to run")
+			if [ -n "$EXECUTABLE" ]; then
+				WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$EXECUTABLE" -no-cef-sandbox
+			fi
+			;;
 
-                "Run winetricks")
-                        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks
-                        ;;
+		"Run winetricks")
+			WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks
+			;;
 
-                "Kill steam-bottler if it's frozen")
-                        pkill -f "wineserver"
-                        pkill -f "system32"
-                        pkill -f "Steam.exe"
-                        pkill -f "steam.exe"
-                        pkill -f "steamwebhelper.exe"
-                        pkill -f "steamapps"
-                        ;;
+		"Kill steam-bottler if it's frozen")
+			pkill -f "wineserver"
+			pkill -f "system32"
+			pkill -f "Steam.exe"
+			pkill -f "steam.exe"
+			pkill -f "steamwebhelper.exe"
+			pkill -f "steamapps"
+			;;
 
-                "Soft-reinstall Steam Client (save/game data is preserved)")
+		"Soft-reinstall Steam Client (save/game data is preserved)")
 
-                        check_install() {
-                                pkg install -y wine wine-proton zenity winetricks
-                                /usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
-                        }
+			check_install() {
+				pkg install wine wine-proton zenity winetricks
+				/usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
+			}
 
-                        fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
+			fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
 
-                        if zenity --question --text="Check that all dependencies are installed in case you're having issues?"; then
-                                check_install
-                        else
-                                zenity --info --text="Alright, let's move on."
-                        fi
+			if zenity --question --text="Check that all dependencies are installed in case you're having issues?"; then
+				check_install
+			else
+				zenity --info --text="Alright, let's move on."
+			fi
 
-                        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/bin/wine winetricks dxvk corefonts
+			WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/bin/wine winetricks dxvk corefonts
 
-                        WINEPREFIX="$PROJECT_DIR" /usr/local/bin/wine /tmp/SteamSetup.exe
+			WINEPREFIX="$PROJECT_DIR" /usr/local/bin/wine /tmp/SteamSetup.exe
 
-                        while pgrep -f "SteamSetup.exe" >/dev/null; do
-                                sleep 1
-                        done
+			while pgrep -f "SteamSetup.exe" >/dev/null; do
+				sleep 1
+			done
 
-                        zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
+			zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
 
-                        pkill -f "wineserver"
-                        pkill -f "system32"
-                        pkill -f "Steam.exe"
-                        pkill -f "steam.exe"
-                        pkill -f "steamwebhelper.exe"
+			pkill -f "wineserver"
+			pkill -f "system32"
+			pkill -f "Steam.exe"
+			pkill -f "steam.exe"
+			pkill -f "steamwebhelper.exe"
 
-                        if zenity --question --text="Do you want to enable DX12 support?"; then
-                                WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
-                        else
-                                zenity --info --text="Alright, let's move on."
-                        fi
+			if zenity --question --text="Do you want to enable DX12 support?"; then
+				WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+			else
+				zenity --info --text="Alright, let's move on."
+			fi
 
-                        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+			WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
 
-                        WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
-                        WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+			WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+			WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
 
-                        WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
-                        ;;
+			WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
+			;;
 
-                "Launch Steam with no sound")
-                        echo "Launching steam-bottler without sound..."
-                        WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=alsa && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
-                        ;;
-                esac
-        done
+		"Launch Steam with no sound")
+			echo "Launching steam-bottler without sound..."
+			WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=alsa && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
+			;;
+		esac
+	done
 
-        ;;
+	;;
 
 "remove")
-        if [ ! -d "$PROJECT_DIR" ]; then
-                zenity --info --text="Maybe it was never installed in the first place."
-                exit 0
-        fi
+	if [ ! -d "$PROJECT_DIR" ]; then
+		zenity --info --text="Maybe it was never installed in the first place."
+		exit 0
+	fi
 
-        remove_shortcuts() {
-                echo "Removing shortcuts..."
-                ~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
-        }
+	remove_shortcuts() {
+		echo "Removing shortcuts..."
+		~/.local/share/applications/steam-bottler-OSS.desktop ~/.local/share/applications/steam-bottler.desktop ~/.local/share/applications/steam-bottler-Configurator.desktop ~/.local/share/icons/hicolor/256x256/apps/steam-bottler-configurator.png
+	}
 
-        remove_data() {
-                echo "Removing all Steam data..."
-                rm -rf ~/.steam-bottler
-        }
+	remove_data() {
+		echo "Removing all Steam data..."
+		rm -rf ~/.steam-bottler
+	}
 
-        if zenity --question --text="Are you sure you want to uninstall steam-bottler? Starting with removing app shortcuts."; then
-                remove_shortcuts
-        else
-                zenity --info --text="Uninstallation canceled."
-        fi
+	if zenity --question --text="Are you sure you want to uninstall steam-bottler? Starting with removing app shortcuts."; then
+		remove_shortcuts
+	else
+		zenity --info --text="Uninstallation canceled."
+	fi
 
-        if zenity --question --text="Now, remove all Steam data?"; then
-                remove_data
-        else
-                sleep 1
-        fi
+	if zenity --question --text="Now, remove all Steam data?"; then
+		remove_data
+	else
+		sleep 1
+	fi
 
-        if zenity --question --text="Now finally, would you like to remove the steam-bottler application?"; then
-                su -l root -c 'pkg remove steam-bottler'
-        else
-                sleep 1
-        fi
-        ;;
+	if zenity --question --text="Now finally, would you like to remove the steam-bottler application?"; then
+		su -l root -c 'pkg remove steam-bottler'
+	else
+		sleep 1
+	fi
+	;;
 
+"winetricks")
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks
+	;;
+
+"kill")
+	pkill -f "wineserver"
+	pkill -f "system32"
+	pkill -f "Steam.exe"
+	pkill -f "steam.exe"
+	pkill -f "steamwebhelper.exe"
+	;;
+
+"soft-reinstall")
+	check_install() {
+		pkg install wine wine-proton zenity winetricks
+		/usr/local/share/wine/pkg32.sh install wine-proton wine mesa-dri
+	}
+
+	fetch -o /tmp/SteamSetup.exe https://cdn.fastly.steamstatic.com/client/installer/SteamSetup.exe
+
+	if zenity --question --text="Check that all dependencies are installed in case you're having issues?"; then
+		check_install
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
+
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/bin/wine winetricks dxvk corefonts
+
+	WINEPREFIX="$PROJECT_DIR" /usr/local/bin/wine /tmp/SteamSetup.exe
+
+	while pgrep -f "SteamSetup.exe" >/dev/null; do
+		sleep 1
+	done
+
+	zenity --info --text="Please click OK 5-10 seconds after the Updating Steam window closes!"
+
+	pkill -f "wineserver"
+	pkill -f "system32"
+	pkill -f "Steam.exe"
+	pkill -f "steam.exe"
+	pkill -f "steamwebhelper.exe"
+
+	if zenity --question --text="Do you want to enable DX12 support?"; then
+		WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks vkd3d
+	else
+		zenity --info --text="Alright, let's move on."
+	fi
+
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=pulse
+
+	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer" /t "REG_SZ" /d "" /f
+	WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine reg.exe ADD "HKEY_CURRENT_USER\Software\Wine\DllOverrides" /v "gameoverlayrenderer64" /t "REG_SZ" /d "" /f
+
+	zenity --info --text="steam-bottler refreshed!"
+	;;
+"nosound")
+	WINEPREFIX="$PROJECT_DIR" WINE=/usr/local/wine-proton/bin/wine winetricks sound=oss && WINEPREFIX="$PROJECT_DIR" /usr/local/wine-proton/bin/wine "$PROJECT_DIR"/drive_c/Program\ Files\ \(x86\)/Steam/steam.exe -cef-disable-sandbox -cef-disable-gpu-compositing -cef-in-process-gpu
+	;;
 *)
-        echo "steam-bottler (run this plain to launch Steam) [oss|install|configure|remove]"
-        exit 1
-        ;;
+	echo "steam-bottler (run this plain to launch Steam) [oss|install|configure|remove]"
+	echo "Some other miscellaneous options include [winetricks|kill|soft-reinstall|nosound]"
+	exit 1
+	;;
 esac
