@@ -1,5 +1,5 @@
 PORTNAME=       steam-bottler
-DISTVERSION=    1.0.7
+DISTVERSION=    1.0.8
 CATEGORIES=     games
 MASTER_SITES=   https://github.com/es-j3/${PORTNAME}/archive/${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
